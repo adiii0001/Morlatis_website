@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 /**
@@ -9,6 +11,12 @@ import { ImageResponse } from "next/og";
 export const alt = "Morlatis Group — Electrical EPC, SCADA & Automation Engineering";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+
+/* Satori has no filesystem and no request context, so the mark is inlined as a
+   data URI at module load rather than fetched. */
+const mark = `data:image/png;base64,${readFileSync(
+  join(process.cwd(), "public", "morlatis-logo-white.png"),
+).toString("base64")}`;
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -25,31 +33,12 @@ export default function OpengraphImage() {
           fontFamily: "sans-serif",
         }}
       >
-        {/* Mark */}
-        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <svg width="52" height="52" viewBox="0 0 32 32" fill="none">
-            <path
-              d="M2.5 25.5 11 13l5 7.35"
-              stroke="#ffffff"
-              strokeWidth="3.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M13 22 21 10.5l8.5 12"
-              stroke="#17b94a"
-              strokeWidth="3.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ color: "#fff", fontSize: 30, fontWeight: 800, letterSpacing: -1 }}>
-              MORLATIS
-            </div>
-            <div style={{ color: "#35d468", fontSize: 13, letterSpacing: 4, fontWeight: 600 }}>
-              INNOVATION UNFURL
-            </div>
+        {/* Mark. The wordmark is inside the artwork, so no type lockup here. */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={mark} width={216} height={80} alt="" />
+          <div style={{ color: "#35d468", fontSize: 13, letterSpacing: 4, fontWeight: 600 }}>
+            INNOVATION UNFURL
           </div>
         </div>
 

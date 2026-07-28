@@ -9,10 +9,10 @@ import { protocolStack, capabilities } from "@/content/technology";
  */
 export function TechnologySection() {
   return (
-    <section className="section relative overflow-hidden bg-ink-950 text-white">
+    <section className="stage-deep section relative overflow-hidden text-white">
       <div className="grid-field absolute inset-0 opacity-60" aria-hidden="true" />
       <div
-        className="absolute inset-0 bg-[radial-gradient(70%_60%_at_85%_0%,rgb(244_160_25/0.12),transparent_60%)]"
+        className="absolute inset-0 bg-[radial-gradient(70%_60%_at_85%_0%,rgb(255_255_255/0.14),transparent_60%)]"
         aria-hidden="true"
       />
 
@@ -25,7 +25,7 @@ export function TechnologySection() {
             <h2 className="display-2 mt-6 text-white" data-reveal>
               We engineer to the standard, not to the brochure.
             </h2>
-            <p className="lede mt-7 text-ink-300" data-reveal>
+            <p className="lede mt-7 text-white/80" data-reveal>
               Distribution networks are mixed-vendor estates assembled over decades. Interoperability
               is not a feature we advertise — it is the constraint every scheme has to satisfy before
               a utility will accept it.
@@ -37,14 +37,14 @@ export function TechnologySection() {
                   key={p.code}
                   className="group grid grid-cols-[8.5rem_1fr] items-baseline gap-4 border-t border-white/10 py-5 last:border-b"
                 >
-                  <span className="font-mono text-[0.8125rem] tracking-wide text-signal-500">
+                  <span className="font-mono text-[0.8125rem] tracking-wide text-signal-200">
                     {p.code}
                   </span>
                   <span>
                     <span className="block text-[0.9375rem] font-semibold text-white">
                       {p.name}
                     </span>
-                    <span className="mt-1 block text-[0.875rem] leading-relaxed text-ink-400">
+                    <span className="mt-1 block text-[0.875rem] leading-relaxed text-white/65">
                       {p.body}
                     </span>
                   </span>
@@ -58,21 +58,21 @@ export function TechnologySection() {
               {capabilities.map((c, i) => (
                 <div
                   key={c.title}
-                  className="bg-ink-950 p-7 transition-colors duration-300 hover:bg-ink-900"
+                  className="bg-[#00402f] p-7 transition-colors duration-300 hover:bg-[#00523b]"
                   data-reveal
                 >
-                  <p className="font-mono text-[0.6875rem] tracking-widest text-ink-500">
+                  <p className="font-mono text-[0.6875rem] tracking-widest text-white/50">
                     {String(i + 1).padStart(2, "0")}
                   </p>
                   <h3 className="title mt-4 text-white">{c.title}</h3>
-                  <p className="mt-3 text-[0.875rem] leading-relaxed text-ink-400">{c.body}</p>
+                  <p className="mt-3 text-[0.875rem] leading-relaxed text-white/70">{c.body}</p>
                   <ul className="mt-5 space-y-2">
                     {c.points.map((pt) => (
                       <li
                         key={pt}
-                        className="flex items-center gap-2.5 text-[0.8125rem] text-ink-300"
+                        className="flex items-center gap-2.5 text-[0.8125rem] text-white/75"
                       >
-                        <span className="h-1 w-1 shrink-0 rounded-full bg-signal-500" />
+                        <span className="h-1 w-1 shrink-0 rounded-full bg-signal-300" />
                         {pt}
                       </li>
                     ))}

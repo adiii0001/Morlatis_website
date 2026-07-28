@@ -266,8 +266,10 @@
   opacity: 0.55;
 }
 
+/* On a green stage the light green accent has nowhere to go, so the inverted
+   eyebrow is plain white held back to 85%. */
 .eyebrow-invert {
-  color: var(--color-signal-400);
+  color: rgb(255 255 255 / 0.85);
 }
 
 .display-1 {
@@ -357,6 +359,18 @@
   box-shadow: 0 8px 24px -6px rgb(23 185 74 / 0.5);
 }
 
+/* Solid white. The primary call to action wherever the surface behind it is
+   the brand green — btn-signal would be green on green. */
+.btn-paper {
+  background-color: var(--color-paper);
+  color: var(--color-ink-950);
+  box-shadow: 0 1px 2px rgb(5 13 25 / 0.12);
+}
+.btn-paper:hover {
+  background-color: var(--color-signal-100);
+  box-shadow: 0 8px 24px -8px rgb(5 13 25 / 0.35);
+}
+
 .btn-ink {
   background-color: var(--color-ink-950);
   color: var(--color-paper);
@@ -415,6 +429,36 @@
 a:hover .link-rule::after,
 .group:hover .link-rule::after {
   transform: scaleX(1);
+}
+
+/* ============================================================================
+   STAGE
+
+   Every full-bleed dark band on the site is the brand green, not navy — the
+   identity is the logo, so the logo's colour carries the weight. Two depths,
+   defined once and used everywhere, so the hero, the technology section, the
+   closing CTA and the footer all read as one material.
+
+   Both run dark-to-light. That is not decoration: white on #17B94A is only
+   2.6:1, so the copy sits on the deep end of the ramp and the bright end is
+   left to artwork.
+   ========================================================================= */
+
+.stage {
+  background-image: linear-gradient(
+    105deg,
+    #00694a 0%,
+    #0e9b3c 45%,
+    #17b94a 78%,
+    #35d468 100%
+  );
+  color: var(--color-paper);
+}
+
+/* The quieter depth, for bands carrying a lot of small text. */
+.stage-deep {
+  background-image: linear-gradient(135deg, #003a2b 0%, #00563c 55%, #0b7f3f 100%);
+  color: var(--color-paper);
 }
 
 /* ============================================================================

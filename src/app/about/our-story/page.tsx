@@ -57,24 +57,29 @@ export default function OurStoryPage() {
               <h2 className="display-3 mt-16">The mark</h2>
               <div className="mt-6 space-y-5">
                 <p className="text-ink-600">
-                  Two ascending chevrons. Read together they form an M; read as motion they are the
-                  unfurl — energy rising left to right, the second climbing higher than the first.
+                  The wordmark is built out of the work itself. The letters are not decorated with
+                  industry symbols; they are made of them — a gear and dial, a leaf, a circuit run
+                  traced through the middle of the name, a tower crane whose jib becomes the beam
+                  across the top, columns rising into an arrow, and a currency mark closing it.
+                  Every vertical the Group operates in is somewhere in the name.
                 </p>
                 <p className="text-ink-600">
-                  Deep navy carries the structural half of the business: the substations, the
-                  documentation, the compliance. Green carries the current. Only the ascending
-                  chevron is green, because the climb is the part that has to be earned.
+                  Green carries the current throughout, in three tones: the solid green of the
+                  letters and the crane beam, a lighter green for the outlines and the finer
+                  detail, and a deep teal at the close. Deep navy carries the other half of the
+                  business — the substations, the documentation, the compliance — and is the ground
+                  the mark is set against.
                 </p>
               </div>
             </div>
 
             <aside className="lg:col-span-4 lg:col-start-9">
-              <div className="flex flex-col items-center justify-center border border-line bg-ink-950 px-8 py-16">
+              <div className="stage-deep flex flex-col items-center justify-center border border-line px-8 py-16">
                 <LogoMark size={96} tone="invert" />
                 <p className="mt-8 font-display text-[1.5rem] font-extrabold tracking-[-0.04em] text-white">
                   MORLATIS
                 </p>
-                <p className="mt-2 text-[0.625rem] font-semibold uppercase tracking-[0.28em] text-signal-400">
+                <p className="mt-2 text-[0.625rem] font-semibold uppercase tracking-[0.28em] text-signal-200">
                   Innovation Unfurl
                 </p>
               </div>

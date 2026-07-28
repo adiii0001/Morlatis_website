@@ -143,7 +143,7 @@ function Conductor({
         <path
           d={d}
           fill="none"
-          stroke="#35d468"
+          stroke="#ffffff"
           strokeWidth="1.8"
           strokeLinecap="round"
           strokeDasharray="3 46"
@@ -264,11 +264,11 @@ export function SignalField({ className }: { className?: string }) {
       {nodes.map((n, i) => (
         <span
           key={i}
-          className="absolute h-[3px] w-[3px] rounded-full bg-signal-500"
+          className="absolute h-[3px] w-[3px] rounded-full bg-white"
           style={{
             left: `${n.x}%`,
             top: `${n.y}%`,
-            boxShadow: "0 0 12px 2px rgb(53 212 104 / 0.45)",
+            boxShadow: "0 0 12px 2px rgb(255 255 255 / 0.45)",
             animation: "pulse-node 6s ease-in-out infinite",
             animationDelay: `${n.d}s`,
           }}

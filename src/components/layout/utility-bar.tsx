@@ -33,34 +33,34 @@ export function UtilityBar() {
 
   return (
     <div
-      className={`fixed inset-x-0 top-0 z-[60] h-[var(--util-h)] border-b border-white/[0.06] bg-ink-950 transition-transform duration-300 ${
+      className={`fixed inset-x-0 top-0 z-[60] h-[var(--util-h)] border-b border-white/10 bg-[#003a2b] transition-transform duration-300 ${
         hidden ? "-translate-y-full" : "translate-y-0"
       }`}
     >
       <div className="shell flex h-full items-center justify-between gap-4">
-        <div className="flex min-w-0 items-center gap-5 text-[0.6875rem] text-ink-300">
+        <div className="flex min-w-0 items-center gap-5 text-[0.6875rem] text-white/80">
           {/* Phone and email stay visible on mobile — they are the two things a
               site visitor on a phone actually wants from a contractor. */}
           <a
             href={`tel:${company.phone.replace(/\s/g, "")}`}
-            className="flex items-center gap-1.5 transition-colors hover:text-signal-400"
+            className="flex items-center gap-1.5 transition-colors hover:text-white"
           >
-            <Icon name="phone" size={12} className="shrink-0 text-signal-500" />
+            <Icon name="phone" size={12} className="shrink-0 text-signal-200" />
             <span className="whitespace-nowrap">{company.phone}</span>
           </a>
           <a
             href={`mailto:${company.email}`}
-            className="hidden items-center gap-1.5 transition-colors hover:text-signal-400 min-[400px]:flex"
+            className="hidden items-center gap-1.5 transition-colors hover:text-white min-[400px]:flex"
           >
-            <Icon name="mail" size={12} className="shrink-0 text-signal-500" />
+            <Icon name="mail" size={12} className="shrink-0 text-signal-200" />
             <span className="truncate">{company.email}</span>
           </a>
           <span className="hidden items-center gap-1.5 lg:flex">
-            <Icon name="pin" size={12} className="shrink-0 text-signal-500" />
+            <Icon name="pin" size={12} className="shrink-0 text-signal-200" />
             <span className="whitespace-nowrap">Patna · New Delhi · Ranchi · Lucknow</span>
           </span>
           <span className="hidden items-center gap-1.5 xl:flex">
-            <Icon name="clock" size={12} className="shrink-0 text-signal-500" />
+            <Icon name="clock" size={12} className="shrink-0 text-signal-200" />
             <span className="whitespace-nowrap">{company.hours}</span>
           </span>
         </div>
@@ -74,7 +74,7 @@ export function UtilityBar() {
                 rel="noopener noreferrer"
                 aria-label={s.label}
                 /* 36px target — the previous 24px failed WCAG 2.5.8. */
-                className="flex h-9 w-8 items-center justify-center text-ink-400 transition-colors hover:text-signal-400"
+                className="flex h-9 w-8 items-center justify-center text-white/60 transition-colors hover:text-white"
               >
                 <SocialIcon name={s.name} size={13} />
               </a>

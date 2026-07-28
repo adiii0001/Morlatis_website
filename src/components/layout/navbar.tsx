@@ -355,7 +355,7 @@ export function Navbar() {
             <Link
               href="/contact"
               className={`btn hidden h-11 px-6 sm:inline-flex ${
-                onDark ? "btn-signal" : "btn-ink"
+                onDark ? "btn-paper" : "btn-ink"
               }`}
             >
               Request a quote

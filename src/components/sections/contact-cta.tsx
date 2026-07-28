@@ -13,16 +13,16 @@ import { company } from "@/content/company";
  */
 export function ContactCtaSection() {
   return (
-    <section className="relative isolate overflow-hidden bg-ink-950 text-white">
+    <section className="stage relative isolate overflow-hidden text-white">
       <div className="grid-field absolute inset-0 opacity-50" aria-hidden="true" />
       <div
-        className="absolute inset-0 bg-[radial-gradient(90%_70%_at_20%_100%,rgb(244_160_25/0.14),transparent_60%)]"
+        className="absolute inset-0 bg-[radial-gradient(90%_70%_at_20%_100%,rgb(255_255_255/0.16),transparent_60%)]"
         aria-hidden="true"
       />
-      <GridScene className="absolute inset-x-0 bottom-0 h-[70%] w-full opacity-25" />
+      <GridScene className="absolute inset-x-0 bottom-0 h-[70%] w-full text-white/25 opacity-25" />
       {/* Scrim: the corridor stays as atmosphere, the copy stays readable. */}
       <div
-        className="absolute inset-0 bg-gradient-to-r from-ink-950 via-ink-950/92 to-ink-950/70"
+        className="absolute inset-0 bg-gradient-to-r from-[#00563C] via-[#00563C]/92 to-[#00563C]/70"
         aria-hidden="true"
       />
 
@@ -35,14 +35,14 @@ export function ContactCtaSection() {
             <h2 className="display-2 mt-6 text-white" data-reveal>
               Tell us what needs to be energised.
             </h2>
-            <p className="lede mt-7 max-w-[32rem] text-ink-300" data-reveal>
+            <p className="lede mt-7 max-w-[32rem] text-white/85" data-reveal>
               Tenders, turnkey scope, automation retrofits or material supply — send the
               specification and we will come back with a technical response, not a brochure.
             </p>
 
             <div className="mt-10 flex flex-col gap-3 sm:flex-row" data-reveal>
               <Magnetic>
-                <Link href="/contact" className="btn btn-signal">
+                <Link href="/contact" className="btn btn-paper">
                   Request a quote
                   <Icon name="arrow-right" size={16} />
                 </Link>
@@ -67,9 +67,9 @@ export function ContactCtaSection() {
                   key={item.label}
                   className="flex items-start gap-4 border-t border-white/10 py-5 last:border-b"
                 >
-                  <Icon name={item.icon} size={17} className="mt-0.5 shrink-0 text-signal-500" />
+                  <Icon name={item.icon} size={17} className="mt-0.5 shrink-0 text-signal-200" />
                   <div>
-                    <dt className="text-[0.6875rem] uppercase tracking-[0.16em] text-ink-400">
+                    <dt className="text-[0.6875rem] uppercase tracking-[0.16em] text-white/65">
                       {item.label}
                     </dt>
                     <dd className="mt-1 text-[0.9375rem] text-white">{item.value}</dd>

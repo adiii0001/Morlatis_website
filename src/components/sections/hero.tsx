@@ -16,26 +16,30 @@ const enterDelay = (ms: number): React.CSSProperties =>
  * opacity:0 and depended on a 3.1s GSAP chain to become visible, which made the
  * largest element on the page invisible to LCP and to any user whose JS failed.
  * Motion here is additive only.
+ *
+ * The stage is the brand green run dark-to-light across the page: the copy
+ * sits on the deep teal end, where white clears AA comfortably, and the
+ * corridor artwork gets the bright end it needs to read against.
  */
 export function HeroSection() {
   return (
-    <section className="relative isolate min-h-[44rem] overflow-hidden bg-ink-950 lg:min-h-[100dvh]">
+    <section className="stage relative isolate min-h-[44rem] overflow-hidden lg:min-h-[100dvh]">
       {/* Atmosphere: grid field, horizon glow, corridor, drifting nodes. */}
       <div className="grid-field absolute inset-0 opacity-70" aria-hidden="true" />
       <div
-        className="absolute inset-0 bg-[radial-gradient(120%_80%_at_78%_88%,rgb(244_160_25/0.16),transparent_58%),radial-gradient(90%_70%_at_12%_-10%,rgb(63_95_139/0.35),transparent_60%)]"
+        className="absolute inset-0 bg-[radial-gradient(120%_80%_at_78%_88%,rgb(255_255_255/0.20),transparent_58%),radial-gradient(90%_70%_at_12%_-10%,rgb(0_70_50/0.55),transparent_60%)]"
         aria-hidden="true"
       />
-      <GridScene className="absolute inset-x-0 bottom-0 h-[62%] w-full opacity-[0.55] lg:h-[74%]" />
+      <GridScene className="absolute inset-x-0 bottom-0 h-[62%] w-full text-white/25 opacity-[0.55] lg:h-[74%]" />
       <SignalField className="absolute inset-0 h-full w-full opacity-70" />
       {/* Left scrim: guarantees text contrast over the corridor without
           dimming the artwork on the right. */}
       <div
-        className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-ink-950 via-ink-950/90 to-transparent lg:w-[62%]"
+        className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-[#00563C] via-[#00563C]/85 to-transparent lg:w-[62%]"
         aria-hidden="true"
       />
       <div
-        className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink-950 to-transparent"
+        className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/25 to-transparent"
         aria-hidden="true"
       />
 
@@ -52,11 +56,11 @@ export function HeroSection() {
             <h1 className="display-1 mt-7 text-white" data-enter style={enterDelay(90)}>
               Powering India&apos;s
               <br />
-              <span className="text-signal-500">infrastructure</span>
+              <span className="text-signal-200">infrastructure</span>
             </h1>
 
             <p
-              className="lede mt-8 max-w-[34rem] text-ink-200"
+              className="lede mt-8 max-w-[34rem] text-white/85"
               data-enter
               style={enterDelay(180)}
             >
@@ -69,9 +73,9 @@ export function HeroSection() {
               data-enter
               style={enterDelay(250)}
             >
-              <span className="text-ink-400">Engineered for</span>
+              <span className="text-white/60">Engineered for</span>
               <RotatingWord
-                className="text-signal-400"
+                className="text-signal-200"
                 words={[
                   "distribution utilities",
                   "Indian Railways",
@@ -88,7 +92,7 @@ export function HeroSection() {
               style={enterDelay(330)}
             >
               <Magnetic>
-                <Link href="/business-verticals" className="btn btn-signal">
+                <Link href="/business-verticals" className="btn btn-paper">
                   Explore our capability
                   <Icon name="arrow-right" size={16} />
                 </Link>
@@ -117,10 +121,10 @@ export function HeroSection() {
                   />
                 </dd>
                 <dt className="mt-2">
-                  <span className="block text-[0.8125rem] font-semibold text-signal-400">
+                  <span className="block text-[0.8125rem] font-semibold text-white">
                     {m.label}
                   </span>
-                  <span className="mt-0.5 block text-[0.75rem] text-ink-400">{m.note}</span>
+                  <span className="mt-0.5 block text-[0.75rem] text-white/60">{m.note}</span>
                 </dt>
               </div>
             ))}
@@ -130,7 +134,7 @@ export function HeroSection() {
 
       <a
         href="#trust"
-        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 items-center gap-2 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-ink-400 transition-colors hover:text-signal-400 xl:flex"
+        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 items-center gap-2 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-white/60 transition-colors hover:text-white xl:flex"
       >
         Scroll
         <Icon name="arrow-down" size={14} />

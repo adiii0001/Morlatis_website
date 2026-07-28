@@ -40,43 +40,43 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden bg-ink-950 text-white">
+    <footer className="stage-deep relative overflow-hidden text-white">
       <div className="grid-field pointer-events-none absolute inset-0 opacity-60" />
 
       <div className="relative shell">
         <div className="grid gap-14 border-b border-white/10 py-16 lg:grid-cols-12 lg:gap-10 lg:py-20">
           <div className="lg:col-span-4">
             <Logo invert />
-            <p className="measure mt-6 text-[0.9375rem] leading-relaxed text-ink-300">
+            <p className="measure mt-6 text-[0.9375rem] leading-relaxed text-white/80">
               A multi-vertical electrical engineering and automation group, headquartered in
               {" "}{company.headquarters}, operating across four states.
             </p>
 
-            <ul className="mt-8 space-y-3.5 text-[0.875rem] text-ink-300">
+            <ul className="mt-8 space-y-3.5 text-[0.875rem] text-white/80">
               <li className="flex items-start gap-3">
-                <Icon name="pin" size={16} className="mt-0.5 shrink-0 text-signal-500" />
+                <Icon name="pin" size={16} className="mt-0.5 shrink-0 text-signal-200" />
                 <span>{company.headquarters}, India</span>
               </li>
               <li className="flex items-start gap-3">
-                <Icon name="phone" size={16} className="mt-0.5 shrink-0 text-signal-500" />
+                <Icon name="phone" size={16} className="mt-0.5 shrink-0 text-signal-200" />
                 <a
                   href={`tel:${company.phone.replace(/\s/g, "")}`}
-                  className="transition-colors hover:text-signal-400"
+                  className="transition-colors hover:text-white"
                 >
                   {company.phone}
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <Icon name="mail" size={16} className="mt-0.5 shrink-0 text-signal-500" />
+                <Icon name="mail" size={16} className="mt-0.5 shrink-0 text-signal-200" />
                 <a
                   href={`mailto:${company.email}`}
-                  className="transition-colors hover:text-signal-400"
+                  className="transition-colors hover:text-white"
                 >
                   {company.email}
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <Icon name="clock" size={16} className="mt-0.5 shrink-0 text-signal-500" />
+                <Icon name="clock" size={16} className="mt-0.5 shrink-0 text-signal-200" />
                 <span>{company.hours}</span>
               </li>
             </ul>
@@ -89,7 +89,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.label}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-ink-300 transition-colors hover:border-signal-500 hover:text-signal-400"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white/80 transition-colors hover:border-white/60 hover:text-white"
                   >
                     <SocialIcon name={s.name} size={15} />
                   </a>
@@ -99,7 +99,7 @@ export function Footer() {
           </div>
 
           <nav aria-label="Business verticals" className="lg:col-span-4">
-            <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-ink-400">
+            <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-white/60">
               Business Verticals
             </h2>
             <ul className="mt-6 space-y-3">
@@ -107,9 +107,9 @@ export function Footer() {
                 <li key={v.slug}>
                   <Link
                     href={`/business-verticals/${v.slug}`}
-                    className="group flex items-baseline gap-3 text-[0.9375rem] text-ink-300 transition-colors hover:text-white"
+                    className="group flex items-baseline gap-3 text-[0.9375rem] text-white/80 transition-colors hover:text-white"
                   >
-                    <span className="font-mono text-[0.6875rem] text-ink-400 transition-colors group-hover:text-signal-400">
+                    <span className="font-mono text-[0.6875rem] text-white/60 transition-colors group-hover:text-white">
                       {v.index}
                     </span>
                     {v.shortTitle}
@@ -122,7 +122,7 @@ export function Footer() {
           <div className="grid gap-10 sm:grid-cols-2 lg:col-span-4">
             {columns.map((col) => (
               <nav key={col.heading} aria-label={col.heading}>
-                <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-ink-400">
+                <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-white/60">
                   {col.heading}
                 </h2>
                 <ul className="mt-6 space-y-3">
@@ -130,7 +130,7 @@ export function Footer() {
                     <li key={l.href}>
                       <Link
                         href={l.href}
-                        className="text-[0.9375rem] text-ink-300 transition-colors hover:text-white"
+                        className="text-[0.9375rem] text-white/80 transition-colors hover:text-white"
                       >
                         {l.label}
                       </Link>
@@ -142,24 +142,24 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 py-7 text-[0.8125rem] text-ink-400 md:flex-row md:items-center md:justify-between">
-          {/* ink-300 on ink-950 — meets AA for small text, unlike the ink-400 used before. */}
-          <p className="text-ink-300">
+        <div className="flex flex-col gap-4 py-7 text-[0.8125rem] text-white/60 md:flex-row md:items-center md:justify-between">
+          {/* white/80 on the deep green — meets AA for small text. */}
+          <p className="text-white/80">
             © {year} {company.name}. All rights reserved.
           </p>
           <ul className="flex flex-wrap gap-x-7 gap-y-2">
             <li>
-              <Link href="/privacy" className="text-ink-300 transition-colors hover:text-white">
+              <Link href="/privacy" className="text-white/80 transition-colors hover:text-white">
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link href="/terms" className="text-ink-300 transition-colors hover:text-white">
+              <Link href="/terms" className="text-white/80 transition-colors hover:text-white">
                 Terms of Service
               </Link>
             </li>
             <li>
-              <Link href="/cookies" className="text-ink-300 transition-colors hover:text-white">
+              <Link href="/cookies" className="text-white/80 transition-colors hover:text-white">
                 Cookie Policy
               </Link>
             </li>
