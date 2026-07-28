@@ -1,26 +1,707 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================================
+   MORLATIS DESIGN SYSTEM
+   A small number of decisions, applied without exception.
+
+   1. Two families: Manrope for display, Inter for text.
+   2. One accent: signal green. Navy carries structure; green carries energy.
+   3. One vertical rhythm: --section-y. Nothing else sets section spacing.
+   4. One hover gesture per component class. No compounding transforms.
+   5. Light identity only. No dark-mode fork.
+   ========================================================================= */
+
+@theme {
+  /* --- Ink: structure, depth, authority ------------------------------- */
+  --color-ink-50: #f4f7fb;
+  --color-ink-100: #e5ecf5;
+  --color-ink-200: #c8d6e8;
+  --color-ink-300: #9ab0cd;
+  --color-ink-400: #6483ab;
+  --color-ink-500: #3f5f8b;
+  --color-ink-600: #2b466c;
+  --color-ink-700: #1d3352;
+  --color-ink-800: #13233b;
+  --color-ink-900: #0b1728;
+  --color-ink-950: #050d19;
+
+  /* --- Signal: energy, current, emphasis ------------------------------- */
+  --color-signal-100: #e2f8ea;
+  --color-signal-200: #b7edcb;
+  --color-signal-300: #7ce0a2;
+  --color-signal-400: #35d468; /* brand light green — outlines & on-dark text */
+  --color-signal-500: #17b94a; /* brand green — decorative & on-dark only */
+  --color-signal-600: #0e9b3c;
+  --color-signal-700: #007a5c; /* brand deep teal-green — AA text on light */
+  --color-signal-800: #005c45;
+
+  /* --- Surface & line -------------------------------------------------- */
+  --color-paper: #ffffff;
+  --color-paper-warm: #fbfaf8;
+  --color-paper-cool: #f4f7fb;
+  --color-line: #e3e9f2;
+  --color-line-strong: #c8d6e8;
+
+  /* --- Type ------------------------------------------------------------ */
+  --font-display: var(--font-manrope), "Manrope", system-ui, sans-serif;
+  --font-text: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+
+  /* Wide dynamic range: 12px micro to 120px display. This is the drama. */
+  --text-display-1: clamp(3.25rem, 8.5vw, 7.5rem);
+  --text-display-2: clamp(2.375rem, 5.2vw, 4.25rem);
+  --text-display-3: clamp(1.875rem, 3.2vw, 2.75rem);
+  --text-title: clamp(1.1875rem, 1.7vw, 1.4375rem);
+  --text-lede: clamp(1.0625rem, 1.35vw, 1.3125rem);
+  --text-body: 1.0625rem; /* 17px — readable, no iOS input zoom */
+  --text-small: 0.9375rem;
+  --text-micro: 0.75rem;
+
+  /* --- Chrome ----------------------------------------------------------- */
+  --util-h: 2.25rem; /* utility bar */
+  --nav-h: 4.75rem; /* main navigation */
+  --header-h: calc(var(--util-h) + var(--nav-h));
+
+  /* --- Rhythm ----------------------------------------------------------- */
+  --section-y: clamp(5.5rem, 10vw, 9.5rem);
+  --section-y-tight: clamp(3.5rem, 6vw, 5.5rem);
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --shell: 90rem; /* 1440 */
+  --measure: 34rem;
+
+  /* --- Motion ----------------------------------------------------------- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 640ms;
+
+  /* --- Elevation: three levels, no more --------------------------------- */
+  --lift-1: 0 1px 2px rgb(5 13 25 / 0.04), 0 2px 8px rgb(5 13 25 / 0.04);
+  --lift-2: 0 2px 4px rgb(5 13 25 / 0.05), 0 12px 32px rgb(5 13 25 / 0.08);
+  --lift-3: 0 8px 16px rgb(5 13 25 / 0.06), 0 32px 64px rgb(5 13 25 / 0.14);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ============================================================================
+   BASE
+   ========================================================================= */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    /* No scroll-behavior here — Lenis owns scrolling. */
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-paper);
+    color: var(--color-ink-900);
+    font-family: var(--font-text);
+    font-size: var(--text-body);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-synthesis-weight: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    font-family: var(--font-display);
+    color: var(--color-ink-950);
+    font-weight: 700;
+    line-height: 1.06;
+    /* Optical tracking: the larger the type, the tighter it sets. */
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  p {
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Focus: one visible treatment everywhere, keyboard only. */
+  :focus-visible {
+    outline: 2px solid var(--color-signal-600);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-ink-900);
+    color: var(--color-paper);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-paper-cool);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ink-200);
+    border-radius: 999px;
+    border: 2px solid var(--color-paper-cool);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ink-300);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ============================================================================
+   COMPONENTS
+
+   Everything below lives in @layer components so that Tailwind utilities —
+   which sit in a later layer — always win. Without this, `.btn`'s
+   `display: inline-flex` overrides a `hidden` utility purely on source order,
+   which is exactly how the mobile menu button ended up pushed off-screen.
+   ========================================================================= */
+
+@layer components {
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
+
+.shell-narrow {
+  width: 100%;
+  max-width: 64rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.section-tight {
+  padding-block: var(--section-y-tight);
+}
+
+.measure {
+  max-width: var(--measure);
+}
+
+/*
+ * Page top offset. One rule, derived from the chrome tokens — replaces the
+ * `pt-32` / `pt-20 md:pt-[112px]` drift that left mobile headings jammed under
+ * the navbar on half the site.
+ */
+.page-top {
+  padding-top: calc(var(--header-h) + clamp(2.5rem, 6vw, 5rem));
+}
+
+/* ============================================================================
+   TYPE ROLES
+   ========================================================================= */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-text);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--color-ink-500);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+.eyebrow-invert {
+  color: var(--color-signal-400);
+}
+
+.display-1 {
+  font-family: var(--font-display);
+  font-size: var(--text-display-1);
+  font-weight: 700;
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+}
+
+.display-2 {
+  font-family: var(--font-display);
+  font-size: var(--text-display-2);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.display-3 {
+  font-family: var(--font-display);
+  font-size: var(--text-display-3);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.028em;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.018em;
+}
+
+.lede {
+  font-size: var(--text-lede);
+  line-height: 1.55;
+  color: var(--color-ink-600);
+}
+
+.body-sm {
+  font-size: var(--text-small);
+  line-height: 1.6;
+  color: var(--color-ink-600);
+}
+
+.numeral {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+
+/* ============================================================================
+   CONTROLS
+   ========================================================================= */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  height: 3.25rem;
+  padding-inline: 1.75rem;
+  font-family: var(--font-text);
+  font-size: var(--text-small);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-base) var(--ease-out-quart),
+    color var(--dur-base) var(--ease-out-quart),
+    border-color var(--dur-base) var(--ease-out-quart),
+    box-shadow var(--dur-base) var(--ease-out-quart);
+}
+
+.btn-signal {
+  background-color: var(--color-signal-500);
+  color: var(--color-ink-950);
+  box-shadow: 0 1px 2px rgb(5 13 25 / 0.1);
+}
+.btn-signal:hover {
+  background-color: var(--color-signal-400);
+  box-shadow: 0 8px 24px -6px rgb(23 185 74 / 0.5);
+}
+
+.btn-ink {
+  background-color: var(--color-ink-950);
+  color: var(--color-paper);
+}
+.btn-ink:hover {
+  background-color: var(--color-ink-800);
+  box-shadow: 0 8px 24px -8px rgb(5 13 25 / 0.4);
+}
+
+.btn-line {
+  background-color: transparent;
+  color: var(--color-ink-900);
+  border: 1px solid var(--color-line-strong);
+}
+.btn-line:hover {
+  border-color: var(--color-ink-900);
+  background-color: var(--color-ink-950);
+  color: var(--color-paper);
+}
+
+.btn-line-invert {
+  background-color: transparent;
+  color: var(--color-paper);
+  border: 1px solid rgb(255 255 255 / 0.28);
+}
+.btn-line-invert:hover {
+  background-color: var(--color-paper);
+  color: var(--color-ink-950);
+  border-color: var(--color-paper);
+}
+
+/* Inline text link with a rule that draws in from the left. */
+.link-rule {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--color-signal-700);
+  padding-block: 0.125rem;
+}
+.link-rule::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out-quart);
+}
+.link-rule:hover::after,
+a:hover .link-rule::after,
+.group:hover .link-rule::after {
+  transform: scaleX(1);
+}
+
+/* ============================================================================
+   SURFACES
+   ========================================================================= */
+
+/* The one card treatment. Border-led, not shadow-led. */
+.panel {
+  position: relative;
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-line);
+  transition:
+    border-color var(--dur-base) var(--ease-out-quart),
+    box-shadow var(--dur-base) var(--ease-out-quart);
+}
+.panel:hover {
+  border-color: var(--color-line-strong);
+  box-shadow: var(--lift-2);
+}
+
+.panel-dark {
+  position: relative;
+  background-color: var(--color-ink-900);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  transition:
+    border-color var(--dur-base) var(--ease-out-quart),
+    background-color var(--dur-base) var(--ease-out-quart);
+}
+.panel-dark:hover {
+  border-color: rgb(23 185 74 / 0.35);
+  background-color: var(--color-ink-800);
+}
+
+.glass-panel {
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+/* ============================================================================
+   SCHEMATIC TEXTURES
+   The visual language: engineering drawing, not decoration.
+   ========================================================================= */
+
+.grid-field {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+.grid-field-light {
+  background-image:
+    linear-gradient(to right, rgb(5 13 25 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(5 13 25 / 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+.fade-edges {
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.fade-bottom {
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
+
+} /* end @layer components */
+
+/* ============================================================================
+   MOTION
+
+   Two mechanisms, both pure CSS. No IntersectionObserver, no DOM mutation, so
+   nothing can desynchronise from React's hydrated tree, and nothing costs main
+   thread time.
+
+   [data-enter]  — above-the-fold entrance. Time-based, staggerable.
+   [data-reveal] — scroll reveal. Driven by a view() timeline, so it is tied to
+                   actual scroll position and runs off the compositor.
+
+   Both default to VISIBLE. A browser without view() timeline support (Firefox
+   at time of writing) simply renders the page static and correct — content is
+   never hidden behind a capability check.
+   ========================================================================= */
+
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-enter] {
+    animation: reveal-rise 760ms var(--ease-out-expo) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+
+  @supports (animation-timeline: view()) {
+    [data-reveal] {
+      animation: reveal-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 4% cover 24%;
+    }
+  }
+}
+
+@keyframes marquee-track {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-track var(--marquee-duration, 48s) linear infinite;
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes word-swap {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.7em, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.word-swap {
+  animation: word-swap 620ms var(--ease-out-expo) both;
+}
+
+@keyframes current-flow {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -240;
+  }
+}
+
+@keyframes pulse-node {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.35);
+  }
+}
+
+/* One global switch. Everything animated respects it. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-enter],
+  [data-reveal] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .marquee-track {
+    animation: none !important;
+  }
+}
+
+/* ============================================================================
+   FORMS & UTILITY
+   ========================================================================= */
+
+@layer components {
+
+.field {
+  width: 100%;
+  height: 3.25rem;
+  padding-inline: 1rem;
+  font-size: var(--text-body);
+  color: var(--color-ink-900);
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-line-strong);
+  border-radius: 0.5rem;
+  transition:
+    border-color var(--dur-fast) ease,
+    box-shadow var(--dur-fast) ease;
+}
+
+textarea.field {
+  height: auto;
+  min-height: 9rem;
+  padding-block: 0.875rem;
+  resize: vertical;
+}
+
+.field::placeholder {
+  color: var(--color-ink-300);
+}
+
+.field:hover {
+  border-color: var(--color-ink-300);
+}
+
+.field:focus {
+  outline: none;
+  border-color: var(--color-ink-900);
+  box-shadow: 0 0 0 3px rgb(5 13 25 / 0.08);
+}
+
+.field[aria-invalid="true"] {
+  border-color: #c0392b;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--color-ink-800);
+}
+
+/* ============================================================================
+   UTILITY
+   ========================================================================= */
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -120%);
+  z-index: 999;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-ink-950);
+  color: var(--color-paper);
+  font-size: var(--text-small);
+  font-weight: 600;
+  border-radius: 0 0 0.5rem 0.5rem;
+  transition: transform var(--dur-base) var(--ease-out-quart);
+}
+.skip-link:focus {
+  transform: translate(-50%, 0);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hairline {
+  height: 1px;
+  background-color: var(--color-line);
+}
+
+.hairline-invert {
+  height: 1px;
+  background-color: rgb(255 255 255 / 0.1);
+}
+
+} /* end @layer components */
