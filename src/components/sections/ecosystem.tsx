@@ -5,8 +5,8 @@ import { verticals } from "@/content/verticals";
 /**
  * Business ecosystem.
  *
- * A numbered capability index rather than eight identical cards. Each vertical
- * is a full-bleed row that inverts on hover — closer to how an annual report
+ * A capability index rather than eight identical cards. Each vertical is a
+ * full-bleed row that inverts on hover — closer to how an annual report
  * indexes a group's operating segments, and it gives each vertical the width
  * its name deserves instead of squeezing "RTU · FRTU · SCADA Engineering" into
  * a 280px card.
@@ -38,17 +38,13 @@ export function EcosystemSection() {
             >
               <Link
                 href={`/business-verticals/${v.slug}`}
-                className="group relative grid grid-cols-[auto_1fr_auto] items-center gap-x-5 gap-y-2 border-b border-line py-7 transition-colors duration-300 md:grid-cols-[3rem_minmax(0,1.15fr)_minmax(0,1fr)_auto] md:gap-x-10"
+                className="group relative grid grid-cols-[1fr_auto] items-center gap-x-5 gap-y-2 border-b border-line py-7 transition-colors duration-300 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)_auto] md:gap-x-10"
               >
                 {/* Ink wash that sweeps in from the left on hover. */}
                 <span
                   aria-hidden="true"
                   className="absolute inset-y-0 -inset-x-[var(--gutter)] -z-10 origin-left scale-x-0 bg-ink-950 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
                 />
-
-                <span className="font-mono text-[0.75rem] tracking-widest text-ink-500 transition-colors duration-300 group-hover:text-signal-500">
-                  {v.index}
-                </span>
 
                 <span className="flex items-center gap-4">
                   <Icon

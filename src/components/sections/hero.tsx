@@ -4,6 +4,7 @@ import { Magnetic } from "@/components/ui/magnetic";
 import { CountUp } from "@/components/ui/count-up";
 import { RotatingWord } from "@/components/ui/rotating-word";
 import { GridScene, SignalField } from "@/components/visuals/grid-scene";
+import { fillLastRow } from "@/lib/grid";
 import { metrics } from "@/content/company";
 
 const enterDelay = (ms: number): React.CSSProperties =>
@@ -110,8 +111,15 @@ export function HeroSection() {
             previous build omitted entirely. */}
         <div className="mt-14 border-t border-white/10 pt-8" data-enter style={enterDelay(420)}>
           <dl className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
-            {metrics.map((m) => (
-              <div key={m.label} className="border-l border-white/12 pl-4">
+            {metrics.map((m, i) => (
+              <div
+                key={m.label}
+                className={`border-l border-white/12 pl-4 ${fillLastRow(metrics.length, i, {
+                  base: 2,
+                  sm: 3,
+                  lg: 5,
+                })}`}
+              >
                 <dd className="numeral text-[clamp(1.75rem,3vw,2.5rem)] text-white">
                   <CountUp
                     value={m.value}
@@ -132,13 +140,6 @@ export function HeroSection() {
         </div>
       </div>
 
-      <a
-        href="#trust"
-        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 items-center gap-2 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-white/60 transition-colors hover:text-white xl:flex"
-      >
-        Scroll
-        <Icon name="arrow-down" size={14} />
-      </a>
     </section>
   );
 }

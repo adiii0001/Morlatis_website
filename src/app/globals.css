@@ -59,9 +59,10 @@
   --text-micro: 0.75rem;
 
   /* --- Chrome ----------------------------------------------------------- */
-  --util-h: 2.25rem; /* utility bar */
-  --nav-h: 4.75rem; /* main navigation */
-  --header-h: calc(var(--util-h) + var(--nav-h));
+  /* One bar. The utility strip that used to sit above it — phone, email,
+     offices, social — is gone; the footer already carries all of it. */
+  --nav-h: 5.75rem; /* main navigation, sized around the wordmark */
+  --header-h: var(--nav-h);
 
   /* --- Rhythm ----------------------------------------------------------- */
   --section-y: clamp(5.5rem, 10vw, 9.5rem);

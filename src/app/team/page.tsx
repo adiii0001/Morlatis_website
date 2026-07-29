@@ -48,16 +48,13 @@ export default function TeamPage() {
             </ul>
           ) : (
             <ul className="border-t border-line-strong">
-              {leadershipDisciplines.map((d, i) => (
+              {leadershipDisciplines.map((d) => (
                 <li
                   key={d.area}
-                  className="grid items-baseline gap-x-8 gap-y-2 border-b border-line py-8 lg:grid-cols-12"
+                  className="grid items-baseline gap-x-10 gap-y-2 border-b border-line py-8 lg:grid-cols-12"
                   data-reveal
                 >
-                  <span className="font-mono text-[0.75rem] tracking-widest text-ink-500 lg:col-span-1">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h2 className="display-3 !text-[clamp(1.25rem,2vw,1.625rem)] text-ink-950 lg:col-span-4">
+                  <h2 className="display-3 !text-[clamp(1.25rem,2vw,1.625rem)] text-ink-950 lg:col-span-5">
                     {d.area}
                   </h2>
                   <p className="text-[0.9375rem] leading-relaxed text-ink-600 lg:col-span-7">

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { fillLastRow } from "@/lib/grid";
 import { Icon } from "@/components/ui/icon";
 import { projects, projectCategories, type ProjectCategory } from "@/content/projects";
 
@@ -60,9 +61,10 @@ export function ProjectsSection() {
         </div>
 
         <ul className="mt-9 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((p) => (
+          {visible.map((p, i) => (
             <li
               key={p.slug}
+              className={fillLastRow(visible.length, i, { sm: 2, lg: 3 })}
               data-reveal
             >
               <Link

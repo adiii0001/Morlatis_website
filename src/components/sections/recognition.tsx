@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Icon } from "@/components/ui/icon";
+import { fillLastRow } from "@/lib/grid";
 import { clients } from "@/content/company";
 
 /**
@@ -42,10 +43,14 @@ export function RecognitionSection() {
 
           <div className="lg:col-span-7 lg:col-start-6">
             <ul className="grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-              {clients.map((c) => (
+              {clients.map((c, i) => (
                 <li
                   key={c.name}
-                  className="group bg-white px-5 py-6 transition-colors duration-300 hover:bg-paper-cool"
+                  className={`group bg-white px-5 py-6 transition-colors duration-300 hover:bg-paper-cool ${fillLastRow(
+                    clients.length,
+                    i,
+                    { sm: 2, lg: 3 }
+                  )}`}
                   data-reveal
                 >
                   <p className="font-display text-[1.0625rem] font-bold tracking-[-0.03em] text-ink-900">

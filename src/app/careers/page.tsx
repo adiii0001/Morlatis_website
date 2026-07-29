@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { fillLastRow } from "@/lib/grid";
 import { Icon } from "@/components/ui/icon";
 import { Ribbon } from "@/components/brand/ribbon";
 import { SectionFlag } from "@/components/brand/section-flag";
@@ -100,7 +101,7 @@ export default function CareersPage() {
             {whyMorlatis.map((item, i) => (
               <li
                 key={item.title}
-                className="group bg-white p-8 transition-colors hover:bg-paper-cool"
+                className={`group bg-white p-8 transition-colors hover:bg-paper-cool ${fillLastRow(whyMorlatis.length, i, { md: 2, lg: 3 })}`}
                 data-reveal-wipe
                 style={{ "--i": i % 3 } as React.CSSProperties}
               >
@@ -200,7 +201,7 @@ export default function CareersPage() {
             {departments.map((d, i) => (
               <li
                 key={d.name}
-                className="group flex h-full flex-col gap-4 bg-white p-6 transition-colors hover:bg-paper-cool"
+                className={`group flex h-full flex-col gap-4 bg-white p-6 transition-colors hover:bg-paper-cool ${fillLastRow(departments.length, i, { sm: 2, lg: 5 })}`}
                 data-reveal-scale
                 style={{ "--i": i % 5 } as React.CSSProperties}
               >

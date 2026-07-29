@@ -1,3 +1,4 @@
+import { fillLastRow } from "@/lib/grid";
 import { protocolStack, capabilities } from "@/content/technology";
 
 /**
@@ -58,7 +59,7 @@ export function TechnologySection() {
               {capabilities.map((c, i) => (
                 <div
                   key={c.title}
-                  className="bg-[#00402f] p-7 transition-colors duration-300 hover:bg-[#00523b]"
+                  className={`bg-[#00402f] p-7 transition-colors duration-300 hover:bg-[#00523b] ${fillLastRow(capabilities.length, i, { sm: 2 })}`}
                   data-reveal
                 >
                   <p className="font-mono text-[0.6875rem] tracking-widest text-white/50">

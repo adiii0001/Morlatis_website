@@ -59,8 +59,10 @@ export function Logo({
   compact?: boolean;
 }) {
   /* The mark carries interior detail — gear, circuit run, crane lattice — so
-     it needs more height than a plain wordmark before it turns to noise. */
-  const height = compact ? 34 : 44;
+     it needs more height than a plain wordmark before it turns to noise. The
+     bar no longer shares the top of the page with a utility strip, so the
+     wordmark takes the room that freed up. */
+  const height = compact ? 46 : 58;
 
   return (
     <span className={`flex items-center ${className ?? ""}`}>

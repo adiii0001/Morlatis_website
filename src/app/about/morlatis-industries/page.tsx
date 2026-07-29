@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { Ribbon } from "@/components/brand/ribbon";
 import { SectionFlag } from "@/components/brand/section-flag";
+import { fillLastRow } from "@/lib/grid";
 
 /**
  * Morlatis Industries.
@@ -307,7 +308,7 @@ export default function MorlatisIndustriesPage() {
             {roadmap.map((r, i) => (
               <li
                 key={r.title}
-                className="bg-white p-7"
+                className={`bg-white p-7 ${fillLastRow(roadmap.length, i, { md: 2, lg: 5 })}`}
                 data-reveal-scale
                 style={{ "--i": i } as React.CSSProperties}
               >

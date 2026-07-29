@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/layout/page-header";
 import { Icon } from "@/components/ui/icon";
 import { projects, projectCategories } from "@/content/projects";
+import { fillLastRow } from "@/lib/grid";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -37,10 +38,13 @@ export default function ProjectsPage() {
                   <span className="hidden h-px flex-1 bg-line sm:block" />
                 </div>
 
+                {/* Government carries three scopes and Corporate one — both
+                    left a grey cell in a two-column grid. */}
                 <ul className="mt-8 grid gap-px overflow-hidden rounded-xl border border-line bg-line lg:grid-cols-2">
-                  {group.map((p) => (
+                  {group.map((p, i) => (
                     <li
                       key={p.slug}
+                      className={fillLastRow(group.length, i, { lg: 2 })}
                       data-reveal
                     >
                       <Link

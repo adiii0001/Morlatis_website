@@ -236,7 +236,7 @@ export function Navbar() {
         className={`fixed inset-x-0 z-[65] transition-[top,background-color,box-shadow] duration-300 ${
           docked
             ? "top-0 border-b border-line bg-white/90 shadow-[0_1px_0_rgb(5_13_25/0.04)] backdrop-blur-xl"
-            : "top-[var(--util-h)] bg-transparent"
+            : "top-0 bg-transparent"
         }`}
       >
         <div className="shell flex h-[var(--nav-h)] items-center justify-between gap-6">
@@ -293,7 +293,6 @@ export function Navbar() {
                           href={`/business-verticals/${v.slug}`}
                           label={v.shortTitle}
                           note={v.summary}
-                          index={v.index}
                         />
                       ))}
                     </div>

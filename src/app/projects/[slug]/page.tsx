@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { fillLastRow } from "@/lib/grid";
 import { PageHeader } from "@/components/layout/page-header";
 import { Icon } from "@/components/ui/icon";
 import { projects, projectBySlug } from "@/content/projects";
@@ -140,8 +141,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             Related scope
           </h2>
           <ul className="mt-7 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
-            {related.map((p) => (
-              <li key={p.slug}>
+            {related.map((p, i) => (
+              <li key={p.slug} className={fillLastRow(related.length, i, { sm: 3 })}>
                 <Link
                   href={`/projects/${p.slug}`}
                   className="group block h-full bg-white p-6 transition-colors hover:bg-paper-cool"

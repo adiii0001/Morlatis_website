@@ -34,9 +34,11 @@ export default function BusinessVerticalsPage() {
                   className="group grid gap-x-8 gap-y-4 border-b border-line py-9 lg:grid-cols-12"
                 >
                   <div className="flex items-start gap-5 lg:col-span-5">
-                    <span className="mt-1.5 font-mono text-[0.75rem] tracking-widest text-ink-500 transition-colors group-hover:text-signal-600">
-                      {v.index}
-                    </span>
+                    <Icon
+                      name={v.icon}
+                      size={26}
+                      className="mt-1 hidden shrink-0 text-ink-400 transition-colors group-hover:text-signal-600 sm:block"
+                    />
                     <div>
                       <h2 className="display-3 !text-[clamp(1.5rem,2.4vw,2rem)] text-ink-950 transition-colors group-hover:text-signal-700">
                         {v.title}

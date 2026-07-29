@@ -10,6 +10,7 @@ import { SectionFlag } from "@/components/brand/section-flag";
 import { SolutionsHub } from "@/components/brand/solutions-hub";
 import { WorkflowTrack } from "@/components/brand/workflow-track";
 import { verticals, verticalBySlug } from "@/content/verticals";
+import { fillLastRow } from "@/lib/grid";
 
 /**
  * One route for all eight verticals.
@@ -50,7 +51,7 @@ export default async function VerticalPage({ params }: { params: Promise<{ slug:
   return (
     <>
       <PageHeader
-        eyebrow={`Vertical ${vertical.index}`}
+        eyebrow="Business vertical"
         title={vertical.title}
         lede={vertical.lede}
         breadcrumb={{ label: "All verticals", href: "/business-verticals" }}
@@ -259,8 +260,8 @@ export default async function VerticalPage({ params }: { params: Promise<{ slug:
             Other verticals
           </h2>
           <ul className="mt-7 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-            {others.map((v) => (
-              <li key={v.slug}>
+            {others.map((v, i) => (
+              <li key={v.slug} className={fillLastRow(others.length, i, { sm: 2, lg: 3 })}>
                 <Link
                   href={`/business-verticals/${v.slug}`}
                   className="group flex h-full items-start gap-4 bg-white p-6 transition-colors hover:bg-paper-cool"

@@ -76,7 +76,9 @@ export const cultureTiles: { caption: string; icon: IconName; span: string; imag
     span: "sm:col-span-2",
     image: "/img/epc-substation.jpg",
   },
-  { caption: "Training and development", icon: "book", span: "" },
+  /* Spans are chosen so both rows close exactly: 2+1+1 then 2+2 at four
+     columns, and 2 / 1+1 / 2 / 2 at two. No ragged tail either way. */
+  { caption: "Training and development", icon: "book", span: "sm:col-span-2" },
 ];
 
 export const departments: { icon: IconName; name: string }[] = [

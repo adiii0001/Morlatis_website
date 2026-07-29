@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/page-header";
 import { Icon } from "@/components/ui/icon";
+import { fillLastRow } from "@/lib/grid";
 import { metrics } from "@/content/company";
 
 export const metadata: Metadata = {
@@ -45,15 +46,22 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About the Group"
         title="A multi-vertical engineering group, eight years in."
-        lede="Founded in Patna in 2018, Morlatis now spans substation EPC, automation, railway electrical works, material supply and commodity trading."
+        lede="Founded in Patna in 2018, Morlatis now spans substation EPC, automation, railway electrical works, strategic sourcing and commodity trading."
         align="wide"
       />
 
       <section className="border-b border-line bg-white">
         <div className="shell">
           <dl className="grid grid-cols-2 gap-px overflow-hidden bg-line sm:grid-cols-3 lg:grid-cols-5">
-            {metrics.map((m) => (
-              <div key={m.label} className="bg-white px-1 py-8">
+            {metrics.map((m, i) => (
+              <div
+                key={m.label}
+                className={`bg-white px-1 py-8 ${fillLastRow(metrics.length, i, {
+                  base: 2,
+                  sm: 3,
+                  lg: 5,
+                })}`}
+              >
                 <dd className="numeral text-[2rem] text-ink-950">
                   {m.prefix}
                   {m.value.toFixed(m.decimals)}

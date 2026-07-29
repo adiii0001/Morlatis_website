@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { fillLastRow } from "@/lib/grid";
 import { PageHeader } from "@/components/layout/page-header";
 
 export const metadata: Metadata = {
@@ -87,7 +88,7 @@ export default function VisionMissionPage() {
             {values.map((v, i) => (
               <li
                 key={v.name}
-                className="bg-white px-7 py-8"
+                className={`bg-white px-7 py-8 ${fillLastRow(values.length, i, { sm: 2, lg: 3 })}`}
                 data-reveal
               >
                 <p className="font-mono text-[0.6875rem] tracking-widest text-ink-500">

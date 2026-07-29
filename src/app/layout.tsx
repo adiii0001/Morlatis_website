@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins, Raleway, Roboto } from "next/font/google";
 import "./globals.css";
-import { UtilityBar } from "@/components/layout/utility-bar";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { SmoothScroll } from "@/components/ui/smooth-scroll";
@@ -123,7 +122,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main" className="skip-link">
           Skip to content
         </a>
-        <UtilityBar />
         <Navbar />
         <main id="main">{children}</main>
         <Footer />

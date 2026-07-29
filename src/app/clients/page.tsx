@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/page-header";
 import { clients } from "@/content/company";
+import { fillLastRow } from "@/lib/grid";
 
 export const metadata: Metadata = {
   title: "Clients",
@@ -35,17 +36,27 @@ export default function ClientsPage() {
                   <span className="hidden h-px flex-1 bg-line sm:block" />
                 </div>
 
+                {/*
+                  Sector groups run from one to three names, so a fixed
+                  four-column grid left a grey hole in almost every band. The
+                  last tile absorbs the shortfall instead, and its contents sit
+                  on one line once it is wide enough to hold them.
+                */}
                 <ul className="mt-6 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-                  {group.map((c) => (
+                  {group.map((c, i) => (
                     <li
                       key={c.name}
-                      className="bg-white px-6 py-7"
+                      className={`flex flex-wrap items-baseline gap-x-3 gap-y-1 bg-white px-6 py-7 ${fillLastRow(
+                        group.length,
+                        i,
+                        { sm: 2, lg: 4 }
+                      )}`}
                       data-reveal
                     >
-                      <p className="font-display text-[1.125rem] font-bold tracking-[-0.03em] text-ink-950">
+                      <p className="font-display text-[1.125rem] font-bold tracking-[-0.02em] text-ink-950">
                         {c.name}
                       </p>
-                      <p className="mt-1.5 text-[0.8125rem] leading-snug text-ink-500">{c.full}</p>
+                      <p className="text-[0.8125rem] leading-snug text-ink-500">{c.full}</p>
                     </li>
                   ))}
                 </ul>
