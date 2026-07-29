@@ -7,7 +7,7 @@ import { verticals } from "@/content/verticals";
 export const metadata: Metadata = {
   title: "Business Verticals",
   description:
-    "Seven verticals: Electrical EPC, RTU/FRTU/SCADA engineering, relay retrofitting, railway electrical works, material supply, commodity trading and the Vasudhaara Foundation.",
+    "Eight verticals: Electrical EPC, RTU/FRTU/SCADA engineering, relay retrofitting, railway electrical works, strategic sourcing, commodity trading, the Vasudhaara Foundation and real estate.",
   alternates: { canonical: "/business-verticals" },
 };
 
@@ -16,7 +16,7 @@ export default function BusinessVerticalsPage() {
     <>
       <PageHeader
         eyebrow="Capability"
-        title="Seven verticals, one engineering discipline."
+        title="Eight verticals, one engineering discipline."
         lede="Each stands on its own commercially and shares the same field teams, safety regime and quality process."
         align="wide"
       />

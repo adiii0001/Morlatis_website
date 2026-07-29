@@ -30,7 +30,7 @@ const sections = [
   {
     href: "/about/morlatis-industries",
     title: "Morlatis Industries",
-    body: "The panel manufacturing and fabrication arm supporting the EPC and automation verticals.",
+    body: "The metal recycling arm — copper and aluminium scrap processed into high-purity ingot at Barun, Gaya.",
   },
   {
     href: "/about/vasudhaara-foundation",

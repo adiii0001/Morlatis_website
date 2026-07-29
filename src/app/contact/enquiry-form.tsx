@@ -11,7 +11,7 @@ const subjects = [
   { value: "automation", label: "RTU / SCADA / Automation" },
   { value: "relay", label: "Relay Retrofitting" },
   { value: "railway", label: "Railway Electrical" },
-  { value: "supply", label: "Material Supply" },
+  { value: "supply", label: "Strategic Sourcing" },
   { value: "trading", label: "Commodity Trading" },
   { value: "csr", label: "Vasudhaara Foundation" },
   { value: "other", label: "Something else" },

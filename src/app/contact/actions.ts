@@ -8,7 +8,7 @@ const SUBJECTS: Record<string, string> = {
   automation: "RTU / SCADA / Automation",
   relay: "Relay Retrofitting",
   railway: "Railway Electrical",
-  supply: "Material Supply",
+  supply: "Strategic Sourcing",
   trading: "Commodity Trading",
   csr: "Vasudhaara Foundation",
   other: "General enquiry",

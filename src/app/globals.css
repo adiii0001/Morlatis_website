@@ -4,7 +4,7 @@
    MORLATIS DESIGN SYSTEM
    A small number of decisions, applied without exception.
 
-   1. Two families: Manrope for display, Inter for text.
+   1. Three families: Raleway for display, Roboto for text, Poppins for chrome.
    2. One accent: signal green. Navy carries structure; green carries energy.
    3. One vertical rhythm: --section-y. Nothing else sets section spacing.
    4. One hover gesture per component class. No compounding transforms.
@@ -43,8 +43,9 @@
   --color-line-strong: #c8d6e8;
 
   /* --- Type ------------------------------------------------------------ */
-  --font-display: var(--font-manrope), "Manrope", system-ui, sans-serif;
-  --font-text: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-display: var(--font-raleway), "Raleway", system-ui, sans-serif;
+  --font-text: var(--font-roboto), "Roboto", system-ui, sans-serif;
+  --font-nav: var(--font-poppins), "Poppins", system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
 
   /* Wide dynamic range: 12px micro to 120px display. This is the drama. */
@@ -120,9 +121,10 @@
     font-family: var(--font-display);
     color: var(--color-ink-950);
     font-weight: 700;
-    line-height: 1.06;
-    /* Optical tracking: the larger the type, the tighter it sets. */
-    letter-spacing: -0.03em;
+    line-height: 1.12;
+    /* Optical tracking: the larger the type, the tighter it sets. Raleway sets
+       wider than Manrope did, so every value here is ~40% shallower. */
+    letter-spacing: -0.018em;
     text-wrap: balance;
   }
 
@@ -249,7 +251,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;
-  font-family: var(--font-text);
+  font-family: var(--font-nav);
   font-size: var(--text-micro);
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -276,32 +278,32 @@
   font-family: var(--font-display);
   font-size: var(--text-display-1);
   font-weight: 700;
-  line-height: 0.94;
-  letter-spacing: -0.045em;
+  line-height: 1;
+  letter-spacing: -0.028em;
 }
 
 .display-2 {
   font-family: var(--font-display);
   font-size: var(--text-display-2);
   font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.035em;
+  line-height: 1.06;
+  letter-spacing: -0.022em;
 }
 
 .display-3 {
   font-family: var(--font-display);
   font-size: var(--text-display-3);
   font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: -0.028em;
+  line-height: 1.14;
+  letter-spacing: -0.018em;
 }
 
 .title {
   font-family: var(--font-display);
   font-size: var(--text-title);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.018em;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.008em;
 }
 
 .lede {
@@ -316,12 +318,14 @@
   color: var(--color-ink-600);
 }
 
+/* Numerals set in Poppins: Raleway's figures are narrow and old-style-ish at
+   display size, which reads badly in a stat row. */
 .numeral {
-  font-family: var(--font-display);
+  font-family: var(--font-nav);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.04em;
-  line-height: 0.9;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
 }
 
 /* ============================================================================
@@ -336,7 +340,7 @@
   gap: 0.625rem;
   height: 3.25rem;
   padding-inline: 1.75rem;
-  font-family: var(--font-text);
+  font-family: var(--font-nav);
   font-size: var(--text-small);
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -572,6 +576,129 @@ a:hover .link-rule::after,
   }
 }
 
+/* ---------------------------------------------------------------------------
+   The industrial-template motion set.
+
+   Same contract as [data-reveal]: default to visible, animate only where the
+   browser supports a view() timeline, so nothing is ever hidden behind a
+   capability check. Stagger a group by setting --i on each child.
+   ------------------------------------------------------------------------ */
+
+@keyframes reveal-wipe {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    transform: translate3d(0, 32px, 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes reveal-slide-left {
+  from {
+    opacity: 0;
+    transform: translate3d(-40px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes reveal-slide-right {
+  from {
+    opacity: 0;
+    transform: translate3d(40px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Slow vertical drift across the scroll range — the parallax on the template's
+   full-bleed image bands. */
+@keyframes drift-up {
+  from {
+    transform: translate3d(0, 7%, 0);
+  }
+  to {
+    transform: translate3d(0, -7%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    [data-reveal-wipe],
+    [data-reveal-left],
+    [data-reveal-right],
+    [data-reveal-scale] {
+      animation: linear both;
+      animation-timeline: view();
+      animation-range: entry 4% cover 26%;
+    }
+
+    [data-reveal-wipe] {
+      animation-name: reveal-wipe;
+    }
+    [data-reveal-left] {
+      animation-name: reveal-slide-left;
+    }
+    [data-reveal-right] {
+      animation-name: reveal-slide-right;
+    }
+    [data-reveal-scale] {
+      animation-name: reveal-scale;
+    }
+
+    /*
+     * Stagger. A view() timeline has no delay to offset, so the step is taken
+     * out of the range instead: each successive card finishes its entrance a
+     * little further up the viewport.
+     */
+    [data-reveal][style*="--i"],
+    [data-reveal-wipe][style*="--i"],
+    [data-reveal-scale][style*="--i"] {
+      animation-range: entry 4% cover calc(24% + var(--i, 0) * 5%);
+    }
+
+    [data-drift] {
+      animation: drift-up linear both;
+      animation-timeline: view();
+      animation-range: cover;
+      will-change: transform;
+    }
+  }
+}
+
+/* Media that pushes in slightly under its own hover — the template's card
+   behaviour. The frame owns the overflow; the child owns the transform. */
+.zoom-frame {
+  overflow: hidden;
+}
+.zoom-frame > .zoom-media,
+.group:hover .zoom-media {
+  transition: transform 720ms var(--ease-out-quart);
+}
+.zoom-frame:hover .zoom-media,
+.group:hover .zoom-media {
+  transform: scale(1.06);
+}
+
 @keyframes marquee-track {
   from {
     transform: translate3d(0, 0, 0);
@@ -640,10 +767,16 @@ a:hover .link-rule::after,
   }
 
   [data-enter],
-  [data-reveal] {
+  [data-reveal],
+  [data-reveal-wipe],
+  [data-reveal-left],
+  [data-reveal-right],
+  [data-reveal-scale],
+  [data-drift] {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+    clip-path: none !important;
   }
 
   .marquee-track {

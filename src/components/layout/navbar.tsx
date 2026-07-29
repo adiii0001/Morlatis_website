@@ -12,7 +12,7 @@ const aboutLinks = [
   { label: "Who We Are", href: "/about/who-we-are", note: "Capability, scale and footprint" },
   { label: "Our Story", href: "/about/our-story", note: "Origin, identity and journey" },
   { label: "Vision · Mission · Values", href: "/about/vision-mission", note: "What governs our decisions" },
-  { label: "Morlatis Industries", href: "/about/morlatis-industries", note: "Panel and fabrication arm" },
+  { label: "Morlatis Industries", href: "/about/morlatis-industries", note: "Metal recycling arm" },
 ];
 
 const companyLinks = [
@@ -224,7 +224,7 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const triggerClass = `group inline-flex h-9 items-center gap-1 rounded-full px-3 text-[0.875rem] font-medium transition-colors ${
+  const triggerClass = `group inline-flex h-9 items-center gap-1 rounded-full px-3 font-nav text-[0.875rem] font-medium transition-colors ${
     onDark
       ? "text-ink-200 hover:text-white data-[state=open]:text-white"
       : "text-ink-700 hover:text-ink-950 data-[state=open]:text-ink-950"
@@ -302,7 +302,7 @@ export function Navbar() {
                         href="/business-verticals"
                         className="link-rule text-signal-700"
                       >
-                        All seven verticals
+                        All eight verticals
                         <Icon name="arrow-right" size={14} />
                       </Link>
                     </div>

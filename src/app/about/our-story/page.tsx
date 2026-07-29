@@ -6,7 +6,7 @@ import { timeline } from "@/content/company";
 export const metadata: Metadata = {
   title: "Our Story",
   description:
-    "How Morlatis Group formed in 2018, what the mark stands for, and the route from electrical contracting to a seven-vertical engineering group.",
+    "How Morlatis Group formed in 2018, what the mark stands for, and the route from electrical contracting to an eight-vertical engineering group.",
   alternates: { canonical: "/about/our-story" },
 };
 
@@ -24,7 +24,7 @@ export default function OurStoryPage() {
     <>
       <PageHeader
         eyebrow="Our story"
-        title="From one contracting licence to seven verticals."
+        title="From one contracting licence to eight verticals."
         breadcrumb={{ label: "About", href: "/about" }}
         align="wide"
       />

@@ -5,7 +5,7 @@ import { verticals } from "@/content/verticals";
 /**
  * Business ecosystem.
  *
- * A numbered capability index rather than seven identical cards. Each vertical
+ * A numbered capability index rather than eight identical cards. Each vertical
  * is a full-bleed row that inverts on hover — closer to how an annual report
  * indexes a group's operating segments, and it gives each vertical the width
  * its name deserves instead of squeezing "RTU · FRTU · SCADA Engineering" into
@@ -21,7 +21,7 @@ export function EcosystemSection() {
               The ecosystem
             </p>
             <h2 className="display-2 mt-6" data-reveal>
-              Seven verticals, one engineering discipline.
+              Eight verticals, one engineering discipline.
             </h2>
           </div>
           <p className="lede max-w-[24rem]" data-reveal>

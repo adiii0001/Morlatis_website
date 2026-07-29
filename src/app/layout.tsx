@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Poppins, Raleway, Roboto } from "next/font/google";
 import "./globals.css";
 import { UtilityBar } from "@/components/layout/utility-bar";
 import { Navbar } from "@/components/layout/navbar";
@@ -7,17 +7,29 @@ import { Footer } from "@/components/layout/footer";
 import { SmoothScroll } from "@/components/ui/smooth-scroll";
 import { company } from "@/content/company";
 
-const inter = Inter({
-  variable: "--font-inter",
+/**
+ * Three families, matching the reference type system the client signed off on:
+ * Raleway sets the headings, Roboto sets the running text, Poppins sets the
+ * navigation and other UI chrome. Raleway and Roboto ship as variable fonts;
+ * Poppins does not, so its weights are declared.
+ */
+const roboto = Roboto({
+  variable: "--font-roboto",
   subsets: ["latin"],
   display: "swap",
 });
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const raleway = Raleway({
+  variable: "--font-raleway",
   subsets: ["latin"],
   display: "swap",
-  weight: ["500", "600", "700", "800"],
+});
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 const SITE = "https://www.morlatis.com";
@@ -103,7 +115,10 @@ const organisationSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={`${inter.variable} ${manrope.variable}`}>
+    <html
+      lang="en-IN"
+      className={`${roboto.variable} ${raleway.variable} ${poppins.variable}`}
+    >
       <body>
         <a href="#main" className="skip-link">
           Skip to content

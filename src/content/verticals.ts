@@ -10,6 +10,14 @@ export type Vertical = {
   lede: string;
   capabilities: { title: string; body: string }[];
   specs: { label: string; value: string }[];
+  /**
+   * "forming" marks a vertical that has been announced but whose scope is not
+   * yet defined. Its page renders an honest holding state rather than inventing
+   * capabilities — see the [slug] route.
+   */
+  status?: "active" | "forming";
+  /** Optional hero photograph, served from /public/img. */
+  image?: string;
 };
 
 export const verticals: Vertical[] = [
@@ -44,6 +52,7 @@ export const verticals: Vertical[] = [
       { label: "Delivery model", value: "Turnkey EPC · SITC · AMC" },
       { label: "Sectors", value: "Utility · Industrial · Institutional" },
     ],
+    image: "/img/epc-substation.jpg",
   },
   {
     slug: "rtu-scada",
@@ -76,6 +85,7 @@ export const verticals: Vertical[] = [
       { label: "Scope", value: "Engineering · Supply · Commissioning · AMC" },
       { label: "Applications", value: "Feeder automation · Substation SCADA" },
     ],
+    image: "/img/epc-engineers.jpg",
   },
   {
     slug: "relay-retrofitting",
@@ -142,13 +152,13 @@ export const verticals: Vertical[] = [
     ],
   },
   {
-    slug: "material-supply",
+    slug: "strategic-sourcing",
     index: "05",
-    title: "Electrical Material Supply",
-    shortTitle: "Material Supply",
+    title: "Strategic Sourcing",
+    shortTitle: "Strategic Sourcing",
     icon: "crate",
-    summary: "Transformers, DG sets, cables, panels and automation hardware.",
-    lede: "A procurement and logistics practice supplying qualified electrical material to utilities, EPC contractors and industrial buyers.",
+    summary: "Vendor qualification, procurement and logistics for electrical material.",
+    lede: "A procurement practice that treats sourcing as engineering: qualified vendors, specification-matched material and delivery scheduled against the project programme.",
     capabilities: [
       {
         title: "Transformers & Switchgear",
@@ -166,12 +176,17 @@ export const verticals: Vertical[] = [
         title: "Automation Hardware",
         body: "RTU, FRTU, numerical relays, meters and communication equipment for automation projects.",
       },
+      {
+        title: "Vendor Qualification",
+        body: "Assessment, empanelment and periodic audit of manufacturers against specification, test capability and delivery record.",
+      },
     ],
     specs: [
       { label: "Standards", value: "IS · IEC conformance" },
       { label: "Buyers", value: "Utilities · EPC · Industrial" },
       { label: "Scope", value: "Sourcing · QA · Logistics" },
     ],
+    image: "/img/industries-logistics.jpg",
   },
   {
     slug: "commodity-trading",
@@ -204,6 +219,7 @@ export const verticals: Vertical[] = [
       { label: "Segments", value: "Metal scrap · TMT · Paint" },
       { label: "Model", value: "Auction · Contract supply" },
     ],
+    image: "/img/industries-market.jpg",
   },
   {
     slug: "vasudhaara-foundation",
@@ -236,6 +252,21 @@ export const verticals: Vertical[] = [
       { label: "Focus regions", value: "Bihar · Jharkhand · Eastern UP" },
       { label: "Funding", value: "Fixed share of Group profit" },
     ],
+  },
+  {
+    slug: "real-estate",
+    index: "08",
+    title: "Real Estate",
+    shortTitle: "Real Estate",
+    icon: "building",
+    summary: "The Group's newest vertical — scope and workflow being defined.",
+    lede: "The Group's newest vertical. Scope, service lines and delivery workflow are being finalised and will be published here.",
+    /* Deliberately empty. Nothing about this vertical is settled yet, and the
+       page renders a holding state rather than inventing a service list. */
+    capabilities: [],
+    specs: [],
+    status: "forming",
+    image: "/img/realestate-site.jpg",
   },
 ];
 
