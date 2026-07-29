@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { SmoothScroll } from "@/components/ui/smooth-scroll";
+import { Motion } from "@/components/ui/motion";
 import { company } from "@/content/company";
 
 /**
@@ -127,6 +128,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
 
         <SmoothScroll />
+        <Motion />
 
         <script
           type="application/ld+json"

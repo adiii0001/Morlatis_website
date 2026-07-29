@@ -538,151 +538,126 @@ a:hover .link-rule::after,
 /* ============================================================================
    MOTION
 
-   Two mechanisms, both pure CSS. No IntersectionObserver, no DOM mutation, so
-   nothing can desynchronise from React's hydrated tree, and nothing costs main
-   thread time.
+   Ported from the reference industrial template, measured rather than guessed.
+   Its animated nodes carry a CSSAnimation on the DocumentTimeline with
+   iteration-count 1 and fill backwards, held paused until the element enters
+   the viewport. So: time-based, plays once, not scrubbed against scroll — and
+   nothing parallaxes, since the template's background media tracks scroll 1:1.
 
-   [data-enter]  — above-the-fold entrance. Time-based, staggerable.
-   [data-reveal] — scroll reveal. Driven by a view() timeline, so it is tied to
-                   actual scroll position and runs off the compositor.
+   The signature move is `slide-in`: the element rises by its own height while a
+   clip-path opens upward from its bottom edge, so text and images appear to
+   rise out of a mask rather than merely fade. Exact values from the reference:
 
-   Both default to VISIBLE. A browser without view() timeline support (Firefox
-   at time of writing) simply renders the page static and correct — content is
-   never hidden behind a capability check.
+     duration   1.2s  (inline links 1s)
+     easing     cubic-bezier(0.645, 0.045, 0.355, 1)
+     translate  translateY(100%) -> 0
+     clip       polygon(0 100%, 100% 100%, 100% 100%, 0 100%) -> full rect
+     stagger    200ms per step
+
+   Cards use the template's other pairing, fade + fold: a 3D rotateX that
+   overshoots slightly on the way in.
+
+   [data-enter]   above-the-fold, plays immediately on load.
+   [data-reveal*] plays when scrolled into view, driven by the observer in
+                  components/ui/motion.tsx.
+
+   No-JS safety: elements are only hidden once <html data-motion> is set, which
+   the observer does on mount. Without JS the page renders static and complete.
    ========================================================================= */
 
-@keyframes reveal-rise {
-  from {
+@keyframes slide-in {
+  0% {
     opacity: 0;
-    transform: translate3d(0, 24px, 0);
+    transform: translate3d(var(--motion-x, 0), var(--motion-y, 100%), 0);
+    clip-path: var(--motion-clip, polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%));
   }
-  to {
+  100% {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+}
+
+/* The horizontal variants open from the leading edge instead of the bottom. */
+@keyframes slide-in-x {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--motion-x), 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fold-in {
+  0% {
+    opacity: 0;
+    transform: perspective(800px) rotateX(-32deg) translate3d(0, 24px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(800px) rotateX(0deg) translate3d(0, 0, 0);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  [data-enter] {
-    animation: reveal-rise 760ms var(--ease-out-expo) both;
-    animation-delay: var(--enter-delay, 0ms);
-  }
-
-  @supports (animation-timeline: view()) {
-    [data-reveal] {
-      animation: reveal-rise linear both;
-      animation-timeline: view();
-      animation-range: entry 4% cover 24%;
-    }
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   The industrial-template motion set.
-
-   Same contract as [data-reveal]: default to visible, animate only where the
-   browser supports a view() timeline, so nothing is ever hidden behind a
-   capability check. Stagger a group by setting --i on each child.
-   ------------------------------------------------------------------------ */
-
-@keyframes reveal-wipe {
-  from {
+  /*
+   * Pre-animation state. Scoped to [data-motion] so it can only ever apply
+   * once JS is running to take it away again.
+   */
+  [data-motion] [data-reveal]:not([data-inview]),
+  [data-motion] [data-reveal-wipe]:not([data-inview]),
+  [data-motion] [data-reveal-left]:not([data-inview]),
+  [data-motion] [data-reveal-right]:not([data-inview]),
+  [data-motion] [data-reveal-scale]:not([data-inview]) {
     opacity: 0;
-    clip-path: inset(0 0 100% 0);
-    transform: translate3d(0, 32px, 0);
+    will-change: transform, opacity, clip-path;
   }
-  to {
-    opacity: 1;
-    clip-path: inset(0 0 0 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
 
-@keyframes reveal-slide-left {
-  from {
-    opacity: 0;
-    transform: translate3d(-40px, 0, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes reveal-slide-right {
-  from {
-    opacity: 0;
-    transform: translate3d(40px, 0, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes reveal-scale {
-  from {
-    opacity: 0;
-    transform: scale(0.94);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Slow vertical drift across the scroll range — the parallax on the template's
-   full-bleed image bands. */
-@keyframes drift-up {
-  from {
-    transform: translate3d(0, 7%, 0);
-  }
-  to {
-    transform: translate3d(0, -7%, 0);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    [data-reveal-wipe],
-    [data-reveal-left],
-    [data-reveal-right],
-    [data-reveal-scale] {
-      animation: linear both;
-      animation-timeline: view();
-      animation-range: entry 4% cover 26%;
-    }
-
-    [data-reveal-wipe] {
-      animation-name: reveal-wipe;
-    }
-    [data-reveal-left] {
-      animation-name: reveal-slide-left;
-    }
-    [data-reveal-right] {
-      animation-name: reveal-slide-right;
-    }
-    [data-reveal-scale] {
-      animation-name: reveal-scale;
-    }
-
+  [data-motion] [data-enter],
+  [data-motion] [data-reveal][data-inview],
+  [data-motion] [data-reveal-wipe][data-inview],
+  [data-motion] [data-reveal-left][data-inview],
+  [data-motion] [data-reveal-right][data-inview],
+  [data-motion] [data-reveal-scale][data-inview] {
+    animation-duration: 1.2s;
+    animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+    animation-iteration-count: 1;
     /*
-     * Stagger. A view() timeline has no delay to offset, so the step is taken
-     * out of the range instead: each successive card finishes its entrance a
-     * little further up the viewport.
+     * `backwards`, as the reference uses — not `both`. With `both` the final
+     * keyframe's clip-path would persist for the life of the page and crop
+     * every hover shadow that grows outside the border box.
      */
-    [data-reveal][style*="--i"],
-    [data-reveal-wipe][style*="--i"],
-    [data-reveal-scale][style*="--i"] {
-      animation-range: entry 4% cover calc(24% + var(--i, 0) * 5%);
-    }
+    animation-fill-mode: backwards;
+    /* 200ms per step, the reference's stagger. --enter-delay overrides it
+       outright for the hand-timed above-the-fold sequence. */
+    animation-delay: var(--enter-delay, calc(var(--i, 0) * 200ms));
+  }
 
-    [data-drift] {
-      animation: drift-up linear both;
-      animation-timeline: view();
-      animation-range: cover;
-      will-change: transform;
-    }
+  [data-motion] [data-enter],
+  [data-motion] [data-reveal][data-inview],
+  [data-motion] [data-reveal-wipe][data-inview] {
+    animation-name: slide-in;
+  }
+
+  [data-motion] [data-reveal-left][data-inview] {
+    --motion-x: -8%;
+    animation-name: slide-in-x;
+  }
+  [data-motion] [data-reveal-right][data-inview] {
+    --motion-x: 8%;
+    animation-name: slide-in-x;
+  }
+
+  [data-motion] [data-reveal-scale][data-inview] {
+    animation-name: fold-in;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* Drop the compositor hint once the element has arrived. */
+  [data-inview] {
+    will-change: auto;
   }
 }
 
@@ -772,8 +747,7 @@ a:hover .link-rule::after,
   [data-reveal-wipe],
   [data-reveal-left],
   [data-reveal-right],
-  [data-reveal-scale],
-  [data-drift] {
+  [data-reveal-scale] {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
