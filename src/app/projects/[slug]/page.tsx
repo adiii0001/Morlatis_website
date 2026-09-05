@@ -56,15 +56,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <div className="lg:col-span-7">
               <h2 className="display-3">Scope delivered</h2>
               <ul className="mt-8">
-                {project.outcomes.map((o, i) => (
+                {project.outcomes.map((o) => (
                   <li
                     key={o}
                     className="flex items-start gap-4 border-t border-line py-5 last:border-b"
                     data-reveal
                   >
-                    <span className="mt-1 font-mono text-[0.6875rem] tracking-widest text-ink-500">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
+                    <Icon name="check" size={16} className="mt-1 shrink-0 text-signal-600" />
                     <span className="text-[0.9375rem] text-ink-700">{o}</span>
                   </li>
                 ))}

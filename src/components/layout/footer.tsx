@@ -20,7 +20,6 @@ const columns = [
       { label: "Our Story", href: "/about/our-story" },
       { label: "Vision · Mission · Values", href: "/about/vision-mission" },
       { label: "Morlatis Industries", href: "/about/morlatis-industries" },
-      { label: "Leadership", href: "/team" },
       { label: "Careers", href: "/careers" },
     ],
   },
@@ -30,11 +29,14 @@ const columns = [
       { label: "Projects", href: "/projects" },
       { label: "Clients", href: "/clients" },
       { label: "Awards & Recognition", href: "/awards" },
-      { label: "Newsroom", href: "/media" },
+      { label: "CSR · Vasudhaara Foundation", href: "/csr" },
       { label: "Contact", href: "/contact" },
     ],
   },
 ];
+
+/** The phone number is unpublished. Render the row only once it is real. */
+const phoneIsReal = !/0{5}/.test(company.phone);
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -44,7 +46,7 @@ export function Footer() {
       <div className="grid-field pointer-events-none absolute inset-0 opacity-60" />
 
       <div className="relative shell">
-        <div className="grid gap-14 border-b border-white/10 py-16 lg:grid-cols-12 lg:gap-10 lg:py-20">
+        <div className="grid gap-12 border-b border-white/10 py-14 lg:grid-cols-12 lg:gap-10 lg:py-16">
           <div className="lg:col-span-4">
             <Logo invert />
             <p className="measure mt-6 text-[0.9375rem] leading-relaxed text-white/80">
@@ -57,15 +59,17 @@ export function Footer() {
                 <Icon name="pin" size={16} className="mt-0.5 shrink-0 text-signal-200" />
                 <span>{company.headquarters}, India</span>
               </li>
-              <li className="flex items-start gap-3">
-                <Icon name="phone" size={16} className="mt-0.5 shrink-0 text-signal-200" />
-                <a
-                  href={`tel:${company.phone.replace(/\s/g, "")}`}
-                  className="transition-colors hover:text-white"
-                >
-                  {company.phone}
-                </a>
-              </li>
+              {phoneIsReal && (
+                <li className="flex items-start gap-3">
+                  <Icon name="phone" size={16} className="mt-0.5 shrink-0 text-signal-200" />
+                  <a
+                    href={`tel:${company.phone.replace(/\s/g, "")}`}
+                    className="transition-colors hover:text-white"
+                  >
+                    {company.phone}
+                  </a>
+                </li>
+              )}
               <li className="flex items-start gap-3">
                 <Icon name="mail" size={16} className="mt-0.5 shrink-0 text-signal-200" />
                 <a
@@ -107,11 +111,8 @@ export function Footer() {
                 <li key={v.slug}>
                   <Link
                     href={`/business-verticals/${v.slug}`}
-                    className="group flex items-baseline gap-3 text-[0.9375rem] text-white/80 transition-colors hover:text-white"
+                    className="text-[0.9375rem] text-white/80 transition-colors hover:text-white"
                   >
-                    <span className="font-mono text-[0.6875rem] text-white/60 transition-colors group-hover:text-white">
-                      {v.index}
-                    </span>
                     {v.shortTitle}
                   </Link>
                 </li>
@@ -142,25 +143,31 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 py-7 text-[0.8125rem] text-white/60 md:flex-row md:items-center md:justify-between">
+        {/*
+          The closing strip. Deliberately one line on anything above a phone —
+          it previously ran two stacked rows with 28px of padding above and
+          below, which left a band of empty green as tall as a section header
+          under content that is three links and a copyright notice.
+        */}
+        <div className="flex flex-col gap-2 py-4 text-[0.8125rem] sm:flex-row sm:items-center sm:justify-between">
           {/* white/80 on the deep green — meets AA for small text. */}
           <p className="text-white/80">
-            © {year} {company.name}. All rights reserved.
+            © {year} {company.name}
           </p>
-          <ul className="flex flex-wrap gap-x-7 gap-y-2">
+          <ul className="flex flex-wrap gap-x-5 gap-y-1">
             <li>
               <Link href="/privacy" className="text-white/80 transition-colors hover:text-white">
-                Privacy Policy
+                Privacy
               </Link>
             </li>
             <li>
               <Link href="/terms" className="text-white/80 transition-colors hover:text-white">
-                Terms of Service
+                Terms
               </Link>
             </li>
             <li>
               <Link href="/cookies" className="text-white/80 transition-colors hover:text-white">
-                Cookie Policy
+                Cookies
               </Link>
             </li>
           </ul>

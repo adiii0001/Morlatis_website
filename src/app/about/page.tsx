@@ -46,7 +46,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About the Group"
         title="A multi-vertical engineering group, eight years in."
-        lede="Founded in Patna in 2018, Morlatis now spans substation EPC, automation, railway electrical works, strategic sourcing and commodity trading."
+        lede="Founded in Patna in 2018, Morlatis now spans substation EPC, automation, railway electrical works, strategic sourcing, wealth management and real estate."
         align="wide"
       />
 
@@ -56,7 +56,7 @@ export default function AboutPage() {
             {metrics.map((m, i) => (
               <div
                 key={m.label}
-                className={`bg-white px-1 py-8 ${fillLastRow(metrics.length, i, {
+                className={`bg-white px-3 py-8 text-center ${fillLastRow(metrics.length, i, {
                   base: 2,
                   sm: 3,
                   lg: 5,
@@ -78,7 +78,7 @@ export default function AboutPage() {
       <section className="section bg-white">
         <div className="shell">
           <ul className="border-t border-line-strong">
-            {sections.map((s, i) => (
+            {sections.map((s) => (
               <li
                 key={s.href}
                 data-reveal
@@ -87,10 +87,7 @@ export default function AboutPage() {
                   href={s.href}
                   className="group grid items-baseline gap-x-8 gap-y-2 border-b border-line py-8 lg:grid-cols-12"
                 >
-                  <span className="font-mono text-[0.75rem] tracking-widest text-ink-500 transition-colors group-hover:text-signal-600 lg:col-span-1">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h2 className="display-3 !text-[clamp(1.375rem,2.2vw,1.875rem)] text-ink-950 transition-colors group-hover:text-signal-700 lg:col-span-4">
+                  <h2 className="display-3 !text-[clamp(1.375rem,2.2vw,1.875rem)] text-ink-950 transition-colors group-hover:text-signal-700 lg:col-span-5">
                     {s.title}
                   </h2>
                   <p className="text-[0.9375rem] leading-relaxed text-ink-600 lg:col-span-6">

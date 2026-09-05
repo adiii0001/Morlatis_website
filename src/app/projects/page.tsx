@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/page-header";
 import { Icon } from "@/components/ui/icon";
+import { FieldGallery } from "@/components/sections/field-gallery";
 import { projects, projectCategories } from "@/content/projects";
+import { pickPhotos } from "@/content/field";
 import { fillLastRow } from "@/lib/grid";
 
 export const metadata: Metadata = {
@@ -32,9 +34,6 @@ export default function ProjectsPage() {
               <div key={category} className="mb-20 last:mb-0">
                 <div className="flex items-baseline gap-4">
                   <h2 className="display-3">{category}</h2>
-                  <span className="font-mono text-[0.75rem] text-ink-500">
-                    {String(group.length).padStart(2, "0")}
-                  </span>
                   <span className="hidden h-px flex-1 bg-line sm:block" />
                 </div>
 
@@ -81,6 +80,26 @@ export default function ProjectsPage() {
           })}
         </div>
       </section>
+
+      {/*
+        The project record was entirely typographic — a page describing what
+        the Group builds, without a single photograph of it. The scope classes
+        above stay the substance; this is the evidence for them.
+      */}
+      <FieldGallery
+        eyebrow="Executed scope"
+        title="The record, photographed."
+        lede="The same scope classes, on site: substation structures, transformer erection, cabling and the civil work that carries it."
+        photos={pickPhotos(
+          "substation-crew",
+          "transformer-hoist",
+          "building-wiring",
+          "crane-pole",
+          "cable-dressing",
+          "road-concreting"
+        )}
+        tone="warm"
+      />
     </>
   );
 }

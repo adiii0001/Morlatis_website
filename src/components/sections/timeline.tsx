@@ -9,14 +9,14 @@ import { timeline } from "@/content/company";
  */
 export function TimelineSection() {
   return (
-    <section className="section overflow-hidden bg-paper-warm">
+    <section className="section overflow-hidden bg-paper-mint">
       <div className="shell">
         <div className="max-w-[38rem]">
           <p className="eyebrow" data-reveal>
             Trajectory
           </p>
           <h2 className="display-2 mt-6" data-reveal>
-            2018 to ₹100 Cr.
+            2018 to 5,000+ works energised.
           </h2>
           <p className="lede mt-6" data-reveal>
             Growth has come from adding engineering capability, not from adding headcount to the
@@ -40,7 +40,7 @@ export function TimelineSection() {
                 <span
                   className={`h-2.5 w-2.5 shrink-0 rounded-full ${
                     "projected" in t && t.projected
-                      ? "border-2 border-signal-500 bg-paper-warm"
+                      ? "border-2 border-signal-500 bg-paper-mint"
                       : "bg-signal-500"
                   }`}
                 />

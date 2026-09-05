@@ -163,7 +163,7 @@ export default function MorlatisIndustriesPage() {
             {facts.map((f, i) => (
               <div
                 key={f.label}
-                className="bg-[#00402f] px-6 py-7"
+                className="bg-[#00402f] px-6 py-7 text-center"
                 data-reveal-scale
                 style={{ "--i": i } as React.CSSProperties}
               >
@@ -245,9 +245,6 @@ export default function MorlatisIndustriesPage() {
                     sizes="(min-width: 1024px) 33vw, 100vw"
                     className="zoom-media object-cover"
                   />
-                  <span className="absolute left-5 top-5 flex h-11 w-11 items-center justify-center rounded-full bg-white/95 font-nav text-[0.8125rem] font-bold text-signal-700 backdrop-blur-sm">
-                    {m.step}
-                  </span>
                 </div>
 
                 <div className="p-8">
@@ -276,19 +273,14 @@ export default function MorlatisIndustriesPage() {
             </div>
 
             <ul className="lg:col-span-7 lg:col-start-6">
-              {edge.map((e, i) => (
+              {edge.map((e) => (
                 <li
                   key={e.title}
-                  className="grid gap-2 border-t border-line py-7 last:border-b sm:grid-cols-[3rem_1fr] sm:gap-6"
+                  className="border-t border-line py-7 last:border-b"
                   data-reveal
                 >
-                  <span className="font-mono text-[0.75rem] tracking-widest text-ink-500">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3 className="title text-ink-950">{e.title}</h3>
-                    <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-ink-600">{e.body}</p>
-                  </div>
+                  <h3 className="title text-ink-950">{e.title}</h3>
+                  <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-ink-600">{e.body}</p>
                 </li>
               ))}
             </ul>
@@ -296,35 +288,52 @@ export default function MorlatisIndustriesPage() {
         </div>
       </section>
 
-      {/* ---------------------------------------------------------------- 05 */}
-      {/* Roadmap */}
-      <section className="section border-t border-line bg-paper-warm">
+      {/* Roadmap.
+          Was a five-across grid of white cards on a white-ish band: the two
+          tones were a hair apart, so the block read as one large empty white
+          slab with text floating in it, and the fifth column was near-empty at
+          most widths. Rebuilt as a rail on the mint band — no cards, no white
+          panel, and the stages read in sequence instead of as a table. */}
+      <section className="section border-t border-line bg-paper-mint">
         <div className="shell">
           <div className="max-w-[46rem]" data-reveal-left>
             <SectionFlag>Where the project stands</SectionFlag>
           </div>
 
-          <ol className="mt-14 grid gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-2 lg:grid-cols-5">
+          <ol className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-5">
             {roadmap.map((r, i) => (
               <li
                 key={r.title}
-                className={`bg-white p-7 ${fillLastRow(roadmap.length, i, { md: 2, lg: 5 })}`}
-                data-reveal-scale
+                className={fillLastRow(roadmap.length, i, { sm: 2, lg: 5 })}
+                data-reveal
                 style={{ "--i": i } as React.CSSProperties}
               >
-                <span
-                  className={`inline-flex items-center rounded-full px-3 py-1 font-nav text-[0.6875rem] font-semibold uppercase tracking-[0.1em] ${
-                    r.projected
-                      ? "border border-line-strong text-ink-500"
-                      : "bg-signal-100 text-signal-700"
-                  }`}
-                >
+                {/* Rail: a filled node for what is done, a hollow one for what
+                    is forecast. */}
+                <div className="flex items-center" aria-hidden="true">
+                  <span
+                    className={`h-2.5 w-2.5 shrink-0 rounded-full ${
+                      r.projected
+                        ? "border-2 border-signal-500 bg-paper-mint"
+                        : "bg-signal-500 shadow-[0_0_0_4px_rgb(23_185_74/0.16)]"
+                    }`}
+                  />
+                  <span
+                    className={`h-px flex-1 ${
+                      r.projected
+                        ? "bg-[repeating-linear-gradient(90deg,var(--color-line-mint)_0_6px,transparent_6px_12px)]"
+                        : "bg-line-mint"
+                    }`}
+                  />
+                </div>
+
+                <p className="mt-6 font-nav text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-signal-700">
                   {r.when}
-                </span>
-                <h3 className="mt-5 font-display text-[1.0625rem] font-bold leading-snug text-ink-950">
+                </p>
+                <h3 className="mt-3 font-display text-[1.0625rem] font-bold leading-snug text-ink-950">
                   {r.title}
                 </h3>
-                <p className="mt-2.5 text-[0.875rem] leading-relaxed text-ink-600">{r.body}</p>
+                <p className="mt-2.5 pr-4 text-[0.875rem] leading-relaxed text-ink-600">{r.body}</p>
               </li>
             ))}
           </ol>

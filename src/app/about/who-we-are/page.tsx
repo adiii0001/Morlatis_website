@@ -76,7 +76,7 @@ export default function WhoWeArePage() {
                     { k: "Headquarters", v: company.headquarters },
                     { k: "Operating states", v: String(statesOfOperation.length) },
                     { k: "Business verticals", v: String(verticals.length) },
-                    { k: "Revenue FY 2023–24", v: "₹26.47 Cr" },
+                    { k: "Electrification works", v: "5,000+" },
                   ].map((row) => (
                     <div key={row.k} className="flex items-baseline justify-between gap-4">
                       <dt className="text-[0.8125rem] text-ink-500">{row.k}</dt>
@@ -97,9 +97,8 @@ export default function WhoWeArePage() {
                     <li key={v.slug}>
                       <Link
                         href={`/business-verticals/${v.slug}`}
-                        className="group flex items-baseline gap-3 text-[0.875rem] text-ink-600 transition-colors hover:text-signal-700"
+                        className="block text-[0.875rem] text-ink-600 transition-colors hover:text-signal-700"
                       >
-                        <span className="font-mono text-[0.6875rem] text-ink-500">{v.index}</span>
                         {v.shortTitle}
                       </Link>
                     </li>

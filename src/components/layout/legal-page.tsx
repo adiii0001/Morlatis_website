@@ -31,12 +31,9 @@ export function LegalPage({
               Last updated · {updated}
             </p>
 
-            {sections.map((s, i) => (
+            {sections.map((s) => (
               <div key={s.heading} className="mt-12 first:mt-10">
                 <h2 className="display-3 !text-[clamp(1.25rem,2vw,1.5rem)]">
-                  <span className="mr-3 font-mono text-[0.75rem] align-middle text-ink-500">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
                   {s.heading}
                 </h2>
                 {s.body.map((p, j) => (

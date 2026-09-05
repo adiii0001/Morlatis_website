@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Icon } from "@/components/ui/icon";
 import { credentials, statesOfOperation } from "@/content/company";
+import { verticals } from "@/content/verticals";
 
 /**
  * About.
@@ -31,7 +33,7 @@ export function AboutSection() {
                 <p className="mt-1 text-[0.8125rem] text-ink-500">Founded in Patna</p>
               </div>
               <div>
-                <p className="numeral text-[2.25rem] text-ink-950">7</p>
+                <p className="numeral text-[2.25rem] text-ink-950">{verticals.length}</p>
                 <p className="mt-1 text-[0.8125rem] text-ink-500">Business verticals</p>
               </div>
               <div>
@@ -43,6 +45,26 @@ export function AboutSection() {
                 </p>
               </div>
             </div>
+
+            {/* The left column ran out of content well before the right one
+                did, leaving a tall gap under the stat row. A photograph fills
+                it and does more work than whitespace. */}
+            <div
+              className="zoom-frame plate group relative mt-12 hidden aspect-[4/3] overflow-hidden lg:block"
+              data-reveal
+            >
+              <Image
+                src="/img/field/line-crew.jpg"
+                alt="Morlatis crew working at height on an overhead distribution pole"
+                fill
+                sizes="40vw"
+                className="zoom-media object-cover object-center"
+              />
+              <div className="media-scrim" aria-hidden="true" />
+              <p className="absolute inset-x-0 bottom-0 p-6 font-display text-[1.0625rem] font-semibold text-white">
+                Own crews. One safety regime across every vertical.
+              </p>
+            </div>
           </div>
 
           {/* Right: the substance */}
@@ -51,8 +73,8 @@ export function AboutSection() {
               <p className="lede">
                 Morlatis began in 2018 as a focused electrical contracting venture serving Bihar&apos;s
                 distribution utilities. It now spans substation EPC, telemetry and protection
-                engineering, railway electrical works, material supply and commodity trading —
-                alongside the Vasudhaara Foundation, the Group&apos;s CSR arm.
+                engineering, railway electrical works, material supply, wealth management and real
+                estate — alongside the Vasudhaara Foundation, the Group&apos;s CSR arm.
               </p>
               <p className="text-ink-600">
                 The through-line is unchanged: work that has to be energised, tested and handed over

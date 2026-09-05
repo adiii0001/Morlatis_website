@@ -48,12 +48,22 @@ export type Metric = {
   note: string;
 };
 
+/**
+ * Headline figures. Revenue is deliberately absent: the Group publishes its
+ * delivery record, not its P&L.
+ */
 export const metrics: Metric[] = [
   { value: 8, prefix: "", suffix: "+", decimals: 0, label: "Years", note: "Since 2018" },
-  { value: 26.47, prefix: "₹", suffix: "Cr", decimals: 2, label: "Revenue", note: "FY 2023–24" },
+  {
+    value: 5000,
+    prefix: "",
+    suffix: "+",
+    decimals: 0,
+    label: "Electrification works",
+    note: "Delivered across India",
+  },
   { value: 30, prefix: "", suffix: "+", decimals: 0, label: "Clients", note: "Utilities & EPC" },
   { value: 4, prefix: "", suffix: "", decimals: 0, label: "States", note: "Operating footprint" },
-  { value: 100, prefix: "₹", suffix: "Cr", decimals: 0, label: "Target", note: "FY 2028" },
 ];
 
 export const credentials = [
@@ -67,7 +77,7 @@ export const credentials = [
   },
   {
     title: "MSTC Authorised Vendor",
-    detail: "Registered for metal and commodity procurement.",
+    detail: "Registered for metal and material procurement.",
   },
   {
     title: "PHED Class-2 Registered",
@@ -103,8 +113,8 @@ export const timeline = [
   },
   {
     year: "2020",
-    title: "Railway & trading verticals",
-    body: "Expanded into railway electrical works and commodity trading under MSTC authorisation.",
+    title: "Railway & sourcing verticals",
+    body: "Expanded into railway electrical works and material supply under MSTC authorisation.",
   },
   {
     year: "2022",
@@ -113,36 +123,74 @@ export const timeline = [
   },
   {
     year: "2024",
-    title: "₹26.47 Cr revenue",
-    body: "Crossed ₹26.47 Cr in FY 2023–24, serving 30+ clients across four states.",
+    title: "5,000+ electrification works",
+    body: "Crossed five thousand electrification works delivered across India, serving 30+ clients.",
   },
   {
-    year: "2025",
+    year: "2026",
     title: "Vasudhaara Foundation",
-    body: "Established the Group's CSR arm for education, healthcare and agriculture programmes.",
+    body: "Established the Group's CSR arm for healthcare, agriculture, education, food and community programmes.",
   },
   {
     year: "2028",
-    title: "₹100 Cr target",
-    body: "Scaling automation and railway verticals toward a ₹100 Cr revenue objective.",
+    title: "A national footprint",
+    body: "Scaling automation, railway and wealth-management verticals beyond the four founding states.",
     projected: true,
   },
 ] as const;
 
 /**
- * Leadership. Names and photographs are intentionally absent — populate this
- * array with real people and the section renders them; leave it empty and the
- * section renders a truthful "details on request" state instead of inventing
- * executives.
+ * Messages from the Founder and the Managing Director.
+ *
+ * DRAFT COPY — every `body` paragraph below is placeholder written to hold the
+ * layout, and every `name` is unset. Replace the paragraphs with the real text
+ * when it arrives and fill in `name`; the section renders whatever is here and
+ * falls back to the role alone while `name` is empty. Nothing else needs to
+ * change anywhere in the codebase.
  */
-export const leadership: Array<{
-  name: string;
+export type ExecutiveMessage = {
   role: string;
-  bio: string;
+  name: string;
+  eyebrow: string;
+  heading: string;
+  body: string[];
+  /** Portrait, served from /public/img. Falls back to a monogram plate. */
   image?: string;
-}> = [];
+  draft: boolean;
+};
 
-export const leadershipDisciplines = [
+export const executiveMessages: ExecutiveMessage[] = [
+  {
+    role: "Founder",
+    name: "",
+    eyebrow: "From the Founder",
+    heading: "We started with one substation and a promise to hand it over right.",
+    body: [
+      "Morlatis began in 2018 with a single conviction: that infrastructure work in Eastern India could be held to the same standard as anywhere else in the country, and that the difference would show up in the handover, not the pitch.",
+      "Eight years later the discipline is unchanged. Every scheme we build has to be energised, tested and accepted on a live network by an engineer who did not write our brochure. That is the only measure of the work we take seriously.",
+    ],
+    draft: true,
+  },
+  {
+    role: "Managing Director",
+    name: "",
+    eyebrow: "From the Managing Director",
+    heading: "Capability first. Scale is what follows.",
+    body: [
+      "Our growth has come from adding engineering capability rather than headcount to the same scope — telemetry, protection, railway electrification and now wealth management, each standing on its own commercially.",
+      "What holds the Group together is a single field organisation with one safety regime and one quality process. It is why a utility, a railway zone and an EPC major can each expect the same behaviour from us on site.",
+    ],
+    draft: true,
+  },
+];
+
+/**
+ * The disciplines the Group is organised into. This was the fallback content
+ * for a Leadership page that has since been withdrawn; it is kept because it is
+ * a true description of how accountability is split, and is cheap to render
+ * wherever that becomes useful again.
+ */
+export const disciplines = [
   { area: "Executive", detail: "Group strategy, governance and capital allocation." },
   { area: "Projects & EPC", detail: "Substation, line works and turnkey delivery." },
   { area: "Automation", detail: "RTU, FRTU, SCADA and protection engineering." },

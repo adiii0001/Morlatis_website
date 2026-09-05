@@ -13,18 +13,25 @@ const aboutLinks = [
   { label: "Our Story", href: "/about/our-story", note: "Origin, identity and journey" },
   { label: "Vision · Mission · Values", href: "/about/vision-mission", note: "What governs our decisions" },
   { label: "Morlatis Industries", href: "/about/morlatis-industries", note: "Metal recycling arm" },
-];
-
-const companyLinks = [
-  { label: "Leadership", href: "/team", note: "The people accountable" },
   { label: "Awards & Recognition", href: "/awards", note: "Independent validation" },
-  { label: "Careers", href: "/careers", note: "Open roles across verticals" },
-  { label: "Newsroom", href: "/media", note: "Announcements and coverage" },
 ];
 
+/*
+ * Careers is a top-level link rather than a Company dropdown entry: it is the
+ * one page a visitor arrives specifically looking for, and burying it one hover
+ * deep cost it every passing click.
+ *
+ * That emptied the Company menu. With Leadership and Newsroom withdrawn and
+ * Careers promoted, it held a single item — a dropdown that opens a 26rem panel
+ * to show one link is worse than no dropdown, so Awards moved into About (where
+ * it belongs: it is part of the company's record) and Company is gone.
+ */
 const flatLinks = [
+  { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
   { label: "Clients", href: "/clients" },
+  { label: "Careers", href: "/careers" },
+  { label: "CSR", href: "/csr" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -118,7 +125,6 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
       items: verticals.map((v) => ({ label: v.shortTitle, href: `/business-verticals/${v.slug}` })),
     },
     { id: "about", label: "About", items: aboutLinks },
-    { id: "company", label: "Company", items: companyLinks },
   ];
 
   return (
@@ -198,17 +204,16 @@ export function Navbar() {
   const pathname = usePathname();
 
   /**
-   * The home hero is a full-bleed dark stage; every other route opens on a
-   * light masthead. Until the header acquires its own background on scroll it
-   * has to adopt the tone of whatever is behind it — otherwise the wordmark
-   * and nav links render near-black on near-black.
+   * The bar is white at every scroll position on every route.
+   *
+   * It used to go transparent over the home hero and adopt the tone behind it,
+   * which meant the links changed colour mid-scroll and, in the handover
+   * frames, disappeared entirely against the artwork. A permanent surface
+   * costs the hero a little drama and buys legibility that never depends on
+   * what is passing underneath.
+   *
+   * `scrolled` now only deepens the shadow and tightens the wordmark.
    */
-  const onDark = pathname === "/" && !scrolled && !menuOpen;
-
-  /* An open mobile panel docks the header to the top and gives it a surface,
-     so the panel starts flush beneath the bar instead of over it. */
-  const docked = scrolled || menuOpen;
-
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
@@ -224,24 +229,23 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const triggerClass = `group inline-flex h-9 items-center gap-1 rounded-full px-3 font-nav text-[0.875rem] font-medium transition-colors ${
-    onDark
-      ? "text-ink-200 hover:text-white data-[state=open]:text-white"
-      : "text-ink-700 hover:text-ink-950 data-[state=open]:text-ink-950"
-  }`;
+  const triggerClass =
+    "group inline-flex h-9 items-center gap-1 rounded-full px-3 font-nav text-[0.875rem] font-medium text-ink-700 transition-colors hover:text-signal-700 data-[state=open]:text-signal-700";
+
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
     <>
       <header
-        className={`fixed inset-x-0 z-[65] transition-[top,background-color,box-shadow] duration-300 ${
-          docked
-            ? "top-0 border-b border-line bg-white/90 shadow-[0_1px_0_rgb(5_13_25/0.04)] backdrop-blur-xl"
-            : "top-0 bg-transparent"
+        className={`fixed inset-x-0 top-0 z-[65] border-b bg-white/95 backdrop-blur-xl transition-[border-color,box-shadow] duration-300 ${
+          scrolled || menuOpen
+            ? "border-line-mint shadow-[0_1px_0_rgb(0_61_44/0.04),0_10px_30px_-18px_rgb(0_61_44/0.35)]"
+            : "border-transparent"
         }`}
       >
         <div className="shell flex h-[var(--nav-h)] items-center justify-between gap-6">
           <Link href="/" aria-label="Morlatis Group — home" className="shrink-0">
-            <Logo compact={scrolled} invert={onDark} />
+            <Logo compact={scrolled} />
           </Link>
 
           <NavigationMenu.Root
@@ -264,13 +268,6 @@ export function Navbar() {
                     {aboutLinks.map((l) => (
                       <MegaLink key={l.href} {...l} />
                     ))}
-                    <div className="mt-1 border-t border-line pt-2">
-                      <MegaLink
-                        href="/about/vasudhaara-foundation"
-                        label="Vasudhaara Foundation"
-                        note="The Group's CSR arm"
-                      />
-                    </div>
                   </div>
                 </NavigationMenu.Content>
               </NavigationMenu.Item>
@@ -301,7 +298,7 @@ export function Navbar() {
                         href="/business-verticals"
                         className="link-rule text-signal-700"
                       >
-                        All eight verticals
+                        All {verticals.length} verticals
                         <Icon name="arrow-right" size={14} />
                       </Link>
                     </div>
@@ -312,30 +309,19 @@ export function Navbar() {
               {flatLinks.map((l) => (
                 <NavigationMenu.Item key={l.href}>
                   <NavigationMenu.Link asChild>
-                    <Link href={l.href} className={triggerClass}>
+                    <Link
+                      href={l.href}
+                      aria-current={isActive(l.href) ? "page" : undefined}
+                      className={`${triggerClass} ${
+                        isActive(l.href) ? "!text-signal-700" : ""
+                      }`}
+                    >
                       {l.label}
                     </Link>
                   </NavigationMenu.Link>
                 </NavigationMenu.Item>
               ))}
 
-              <NavigationMenu.Item>
-                <NavigationMenu.Trigger className={triggerClass}>
-                  Company
-                  <Icon
-                    name="chevron-down"
-                    size={13}
-                    className="text-ink-400 transition-transform duration-200 group-data-[state=open]:rotate-180"
-                  />
-                </NavigationMenu.Trigger>
-                <NavigationMenu.Content className="w-[26rem] max-w-[calc(100vw-2rem)]">
-                  <div className="grid gap-1 p-3">
-                    {companyLinks.map((l) => (
-                      <MegaLink key={l.href} {...l} />
-                    ))}
-                  </div>
-                </NavigationMenu.Content>
-              </NavigationMenu.Item>
             </NavigationMenu.List>
 
             {/*
@@ -351,12 +337,7 @@ export function Navbar() {
           </NavigationMenu.Root>
 
           <div className="flex shrink-0 items-center gap-2">
-            <Link
-              href="/contact"
-              className={`btn hidden h-11 px-6 sm:inline-flex ${
-                onDark ? "btn-paper" : "btn-ink"
-              }`}
-            >
+            <Link href="/contact" className="btn btn-signal hidden h-11 px-6 sm:inline-flex">
               Request a quote
               <Icon name="arrow-up-right" size={15} />
             </Link>
@@ -367,11 +348,7 @@ export function Navbar() {
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               onClick={() => setMenuOpen((v) => !v)}
-              className={`flex h-11 w-11 items-center justify-center rounded-full border transition-colors lg:hidden ${
-                onDark
-                  ? "border-white/25 text-white hover:bg-white/10"
-                  : "border-line text-ink-900 hover:bg-ink-50"
-              }`}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-line-mint text-ink-900 transition-colors hover:bg-paper-mint lg:hidden"
             >
               <Icon name={menuOpen ? "close" : "menu"} size={20} />
             </button>

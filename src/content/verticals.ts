@@ -2,7 +2,6 @@ import type { IconName } from "@/components/ui/icon";
 
 export type Vertical = {
   slug: string;
-  index: string;
   title: string;
   shortTitle: string;
   icon: IconName;
@@ -23,7 +22,6 @@ export type Vertical = {
 export const verticals: Vertical[] = [
   {
     slug: "electrical-epc",
-    index: "01",
     title: "Electrical EPC",
     shortTitle: "Electrical EPC",
     icon: "bolt",
@@ -52,11 +50,12 @@ export const verticals: Vertical[] = [
       { label: "Delivery model", value: "Turnkey EPC · SITC · AMC" },
       { label: "Sectors", value: "Utility · Industrial · Institutional" },
     ],
-    image: "/img/epc-substation.jpg",
+    /* Not the substation-crew shot — that one carries the homepage hero, and
+       the same photograph twice on one page reads as a thin library. */
+    image: "/img/field/pole-erection.jpg",
   },
   {
     slug: "rtu-scada",
-    index: "02",
     title: "RTU · FRTU · SCADA Engineering",
     shortTitle: "RTU · SCADA",
     icon: "signal",
@@ -85,11 +84,10 @@ export const verticals: Vertical[] = [
       { label: "Scope", value: "Engineering · Supply · Commissioning · AMC" },
       { label: "Applications", value: "Feeder automation · Substation SCADA" },
     ],
-    image: "/img/epc-engineers.jpg",
+    image: "/img/field/transformer-hoist.jpg",
   },
   {
     slug: "relay-retrofitting",
-    index: "03",
     title: "Relay Retrofitting",
     shortTitle: "Relay Retrofitting",
     icon: "relay",
@@ -118,10 +116,10 @@ export const verticals: Vertical[] = [
       { label: "Scope", value: "Design · Supply · Retrofit · Testing" },
       { label: "Asset type", value: "CRP panels · Numerical IEDs" },
     ],
+    image: "/img/field/cable-pull.jpg",
   },
   {
     slug: "railway-electrical",
-    index: "04",
     title: "Railway Electrical Works",
     shortTitle: "Railway Electrical",
     icon: "rail",
@@ -150,10 +148,10 @@ export const verticals: Vertical[] = [
       { label: "Scope", value: "EPC · Material supply" },
       { label: "Environment", value: "Live-network, protocol-governed" },
     ],
+    image: "/img/field/crane-pole.jpg",
   },
   {
     slug: "strategic-sourcing",
-    index: "05",
     title: "Strategic Sourcing",
     shortTitle: "Strategic Sourcing",
     icon: "crate",
@@ -189,73 +187,46 @@ export const verticals: Vertical[] = [
     image: "/img/industries-logistics.jpg",
   },
   {
-    slug: "commodity-trading",
-    index: "06",
-    title: "Commodity Trading",
-    shortTitle: "Commodity Trading",
-    icon: "trend",
-    summary: "MSTC-authorised metal scrap, TMT, paint and commodity markets.",
-    lede: "A trading desk operating in industrial commodity markets under MSTC vendor authorisation.",
+    slug: "morlatis-equifin",
+    title: "Morlatis Equifin",
+    shortTitle: "Morlatis Equifin",
+    icon: "growth",
+    summary: "Wealth management, portfolio advisory and long-term financial planning.",
+    lede: "Morlatis Equifin Private Limited helps individuals, families and businesses build, preserve and grow wealth through disciplined financial planning and research-driven investment strategies.",
     capabilities: [
       {
-        title: "Metal Scrap",
-        body: "Participation in MSTC e-auctions for ferrous and non-ferrous scrap, with lifting and logistics handled in-house.",
+        title: "Portfolio Management",
+        body: "Customised investment portfolios aligned with each client's objectives, horizon and risk tolerance.",
       },
       {
-        title: "TMT & Structural Steel",
-        body: "Sourcing and supply of TMT bars and structural steel for infrastructure and construction buyers.",
+        title: "Equity Investments",
+        body: "Research-based investments in quality companies, held for long-term growth rather than short-term movement.",
       },
       {
-        title: "Industrial Paint",
-        body: "Bulk supply of protective and industrial coatings for infrastructure and asset maintenance programmes.",
+        title: "Wealth Management",
+        body: "Comprehensive financial planning and wealth preservation across a family's or a business's full balance sheet.",
       },
       {
-        title: "Market Operations",
-        body: "Contract structuring, price risk management and delivery coordination across commodity positions.",
+        title: "Investment Advisory",
+        body: "Professional guidance supported by market research, delivered with complete transparency on rationale and cost.",
+      },
+      {
+        title: "Retirement Planning",
+        body: "Structures designed to create sustainable income and preserved capital through retirement.",
+      },
+      {
+        title: "Goal-Based Investing",
+        body: "Plans built around a named goal — education, a home, business expansion — rather than around a product.",
       },
     ],
     specs: [
-      { label: "Authorisation", value: "MSTC registered vendor" },
-      { label: "Segments", value: "Metal scrap · TMT · Paint" },
-      { label: "Model", value: "Auction · Contract supply" },
-    ],
-    image: "/img/industries-market.jpg",
-  },
-  {
-    slug: "vasudhaara-foundation",
-    index: "07",
-    title: "Morlatis Vasudhaara Foundation",
-    shortTitle: "Vasudhaara Foundation",
-    icon: "leaf",
-    summary: "The Group's CSR arm — education, healthcare, agriculture, community.",
-    lede: "Vasudhaara — a flow of wealth back into the communities the Group operates in. Established 2025 as the Group's corporate social responsibility vehicle.",
-    capabilities: [
-      {
-        title: "Education",
-        body: "School infrastructure support, scholarships and digital literacy programmes in rural Bihar and Jharkhand.",
-      },
-      {
-        title: "Healthcare",
-        body: "Health check-up camps, eye care drives and equipment support for primary healthcare centres.",
-      },
-      {
-        title: "Agriculture",
-        body: "Farmer training, input support and water conservation initiatives for smallholder cultivators.",
-      },
-      {
-        title: "Community",
-        body: "Drinking water access, sanitation drives, plantation campaigns and disaster relief support.",
-      },
-    ],
-    specs: [
-      { label: "Established", value: "2025" },
-      { label: "Focus regions", value: "Bihar · Jharkhand · Eastern UP" },
-      { label: "Funding", value: "Fixed share of Group profit" },
+      { label: "Entity", value: "Morlatis Equifin Private Limited" },
+      { label: "Advisory", value: "SEBI Registered Investment Advisor led" },
+      { label: "Approach", value: "Research-driven · Transparent · Long-term" },
     ],
   },
   {
     slug: "real-estate",
-    index: "08",
     title: "Real Estate",
     shortTitle: "Real Estate",
     icon: "building",

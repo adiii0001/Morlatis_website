@@ -1,12 +1,12 @@
 import { redirect } from "next/navigation";
 
 /**
- * The Foundation previously had two separate pages — one under /about and one
- * under /business-verticals — both linked from the navigation and footer. Same
- * entity, duplicate content, split search authority.
+ * The Foundation has had three addresses over the life of this site: one under
+ * /about, one under /business-verticals, and now /csr — which is the correct
+ * one, because it is a charitable trust and not a trading vertical.
  *
- * The vertical page is now canonical; this path redirects to it.
+ * Both older paths redirect here so nothing linked or indexed breaks.
  */
 export default function AboutVasudhaaraFoundation() {
-  redirect("/business-verticals/vasudhaara-foundation");
+  redirect("/csr");
 }

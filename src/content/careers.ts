@@ -61,7 +61,7 @@ export const cultureTiles: { caption: string; icon: IconName; span: string; imag
     caption: "Field engineering on the network",
     icon: "tower",
     span: "sm:col-span-2",
-    image: "/img/epc-engineers.jpg",
+    image: "/img/field/cable-pull.jpg",
   },
   {
     caption: "Plant and processing work",
@@ -74,11 +74,18 @@ export const cultureTiles: { caption: string; icon: IconName; span: string; imag
     caption: "Substation and transformer projects",
     icon: "transformer",
     span: "sm:col-span-2",
-    image: "/img/epc-substation.jpg",
+    image: "/img/field/crane-pole.jpg",
   },
   /* Spans are chosen so both rows close exactly: 2+1+1 then 2+2 at four
      columns, and 2 / 1+1 / 2 / 2 at two. No ragged tail either way. */
-  { caption: "Training and development", icon: "book", span: "sm:col-span-2" },
+  {
+    caption: "Training and development",
+    icon: "book",
+    span: "sm:col-span-2",
+    /* Licensed stock — see the `stock` note in content/field.ts. Replace with a
+       photograph of a real Morlatis toolbox talk when one is shot. */
+    image: "/img/stock/training-workshop.jpg",
+  },
 ];
 
 export const departments: { icon: IconName; name: string }[] = [

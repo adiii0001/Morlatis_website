@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { SmoothScroll } from "@/components/ui/smooth-scroll";
 import { Motion } from "@/components/ui/motion";
+import { Preloader } from "@/components/ui/preloader";
 import { company } from "@/content/company";
 
 /**
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     template: "%s | Morlatis Group",
   },
   description:
-    "Morlatis Group is a multi-vertical electrical engineering group in Patna, Bihar: substation EPC, RTU/FRTU/SCADA, relay retrofitting, railway electrical works, material supply and commodity trading.",
+    "Morlatis Group is a multi-vertical electrical engineering group in Patna, Bihar: substation EPC, RTU/FRTU/SCADA, relay retrofitting, railway electrical works, material supply, wealth management and real estate.",
   applicationName: "Morlatis Group",
   keywords: [
     "electrical EPC contractor Bihar",
@@ -120,6 +121,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${roboto.variable} ${raleway.variable} ${poppins.variable}`}
     >
       <body>
+        {/* First in the body so it is painted with the first frame rather than
+            appearing over a page the reader has already started reading. */}
+        <Preloader />
+
         <a href="#main" className="skip-link">
           Skip to content
         </a>

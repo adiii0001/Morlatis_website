@@ -91,10 +91,7 @@ export default function VisionMissionPage() {
                 className={`bg-white px-7 py-8 ${fillLastRow(values.length, i, { sm: 2, lg: 3 })}`}
                 data-reveal
               >
-                <p className="font-mono text-[0.6875rem] tracking-widest text-ink-500">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <h3 className="title mt-4 text-ink-950">{v.name}</h3>
+                <h3 className="title text-ink-950">{v.name}</h3>
                 <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-ink-600">{v.body}</p>
               </li>
             ))}

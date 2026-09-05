@@ -9,11 +9,13 @@ import { Ribbon } from "@/components/brand/ribbon";
 import { SectionFlag } from "@/components/brand/section-flag";
 import { SolutionsHub } from "@/components/brand/solutions-hub";
 import { WorkflowTrack } from "@/components/brand/workflow-track";
+import { EquifinSections } from "@/components/equifin/equifin-sections";
+import { RailwayScene } from "@/components/visuals/railway-scene";
 import { verticals, verticalBySlug } from "@/content/verticals";
 import { fillLastRow } from "@/lib/grid";
 
 /**
- * One route for all eight verticals.
+ * One route for every vertical.
  *
  * Replaces seven hand-maintained page files that were structurally identical —
  * ~330 lines of duplication in which the same vertical carried a different icon
@@ -80,9 +82,16 @@ export default async function VerticalPage({ params }: { params: Promise<{ slug:
       {vertical.specs.length > 0 && (
         <section className="border-b border-line bg-white">
           <div className="shell">
+            {/*
+              Centred in the cell, not flush to its leading edge. The dividing
+              hairlines are what the eye reads as the boundary of each figure,
+              so left-aligned content sat hard against one line with a hand's
+              width of empty white before the next — three labels adrift in
+              their own boxes rather than a row of three matched figures.
+            */}
             <dl className="grid gap-px overflow-hidden bg-line sm:grid-cols-3">
               {vertical.specs.map((s) => (
-                <div key={s.label} className="bg-white py-7">
+                <div key={s.label} className="bg-white px-6 py-7 text-center">
                   <dt className="text-[0.6875rem] uppercase tracking-[0.16em] text-ink-500">
                     {s.label}
                   </dt>
@@ -135,21 +144,16 @@ export default async function VerticalPage({ params }: { params: Promise<{ slug:
               </div>
 
               <ul className="lg:col-span-7 lg:col-start-6">
-                {vertical.capabilities.map((c, i) => (
+                {vertical.capabilities.map((c) => (
                   <li
                     key={c.title}
-                    className="grid gap-2 border-t border-line py-7 last:border-b sm:grid-cols-[3rem_1fr] sm:gap-6"
+                    className="border-t border-line py-7 last:border-b"
                     data-reveal
                   >
-                    <span className="font-mono text-[0.75rem] tracking-widest text-ink-500">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <h3 className="title text-ink-950">{c.title}</h3>
-                      <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-ink-600">
-                        {c.body}
-                      </p>
-                    </div>
+                    <h3 className="title text-ink-950">{c.title}</h3>
+                    <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-ink-600">
+                      {c.body}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -197,10 +201,44 @@ export default async function VerticalPage({ params }: { params: Promise<{ slug:
         </section>
       )}
 
+      {/* Equifin is a financial-services business, and the only vertical that
+          needs a process ladder, a projection tool and a compliance footer. */}
+      {vertical.slug === "morlatis-equifin" && <EquifinSections />}
+
+      {/* Railway: a drawn 25 kV overhead-equipment corridor with traction
+          current animated along the contact wire, standing in for the AI video
+          the brief asked for. See components/visuals/railway-scene.tsx. */}
+      {vertical.slug === "railway-electrical" && (
+        <section className="stage-deep relative isolate overflow-hidden text-white">
+          <div className="grid-field absolute inset-0 opacity-40" aria-hidden="true" />
+          <RailwayScene className="absolute inset-y-0 right-0 h-full w-full text-white/45" />
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-[#003325] via-[#003325]/85 to-transparent"
+            aria-hidden="true"
+          />
+
+          <div className="shell section-tight relative">
+            <div className="max-w-[34rem]">
+              <p className="eyebrow eyebrow-invert" data-reveal>
+                Overhead equipment
+              </p>
+              <h2 className="display-3 mt-6 text-white" data-reveal>
+                25 kV, live, and timetabled around traffic.
+              </h2>
+              <p className="lede mt-6 text-white/80" data-reveal>
+                Railway electrification is the least forgiving environment we work in. The block is
+                granted in hours, the protocols are the zone&apos;s, and the line has to carry
+                traffic when it ends.
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/*
         The delivery workflow and the problem/solution pairs, both from the UPS
         brochure. They describe distribution-utility work, so they sit on the
-        EPC vertical rather than being repeated across all eight.
+        EPC vertical rather than being repeated across every vertical.
       */}
       {vertical.slug === "electrical-epc" && (
         <>
@@ -236,7 +274,7 @@ export default async function VerticalPage({ params }: { params: Promise<{ slug:
                 ].map((s, i) => (
                   <div
                     key={s.l}
-                    className="bg-white px-6 py-8"
+                    className="bg-white px-6 py-8 text-center"
                     data-reveal-scale
                     style={{ "--i": i } as React.CSSProperties}
                   >

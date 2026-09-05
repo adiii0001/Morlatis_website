@@ -35,12 +35,18 @@
   --color-signal-700: #007a5c; /* brand deep teal-green — AA text on light */
   --color-signal-800: #005c45;
 
-  /* --- Surface & line -------------------------------------------------- */
+  /* --- Surface & line --------------------------------------------------
+     The palette is white and light green. `paper-mint` replaces the old cool
+     blue-grey as the alternating band colour so the light surfaces sit in the
+     same family as the brand rather than drifting toward navy. */
   --color-paper: #ffffff;
   --color-paper-warm: #fbfaf8;
   --color-paper-cool: #f4f7fb;
+  --color-paper-mint: #f3fbf6;
+  --color-paper-mint-deep: #e8f6ee;
   --color-line: #e3e9f2;
   --color-line-strong: #c8d6e8;
+  --color-line-mint: #cdeadb;
 
   /* --- Type ------------------------------------------------------------ */
   --font-display: var(--font-raleway), "Raleway", system-ui, sans-serif;
@@ -48,8 +54,14 @@
   --font-nav: var(--font-poppins), "Poppins", system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
 
-  /* Wide dynamic range: 12px micro to 120px display. This is the drama. */
-  --text-display-1: clamp(3.25rem, 8.5vw, 7.5rem);
+  /* Wide dynamic range: 12px micro to 96px display. This is the drama.
+   *
+   * display-1 was capped at 7.5rem, which was set against a full-width
+   * measure. Its main use is the hero, where it sits in a half-width column —
+   * and "infrastructure" is 6.2em wide, so at 120px it needed 746px of a 640px
+   * column and ran out under the photograph. The cap is now sized so the
+   * longest word in the heading fits the narrowest column it is used in. */
+  --text-display-1: clamp(2.75rem, 5.6vw, 6rem);
   --text-display-2: clamp(2.375rem, 5.2vw, 4.25rem);
   --text-display-3: clamp(1.875rem, 3.2vw, 2.75rem);
   --text-title: clamp(1.1875rem, 1.7vw, 1.4375rem);
@@ -78,10 +90,35 @@
   --dur-base: 320ms;
   --dur-slow: 640ms;
 
+  /* The entrance. Signed off as "one to two seconds": a single block takes
+     1.25s, and a staggered group of six finishes at 1.95s. Anything faster
+     stops reading as a considered move; anything slower feels broken. */
+  --reveal-dur: 1250ms;
+  --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
   /* --- Elevation: three levels, no more --------------------------------- */
   --lift-1: 0 1px 2px rgb(5 13 25 / 0.04), 0 2px 8px rgb(5 13 25 / 0.04);
   --lift-2: 0 2px 4px rgb(5 13 25 / 0.05), 0 12px 32px rgb(5 13 25 / 0.08);
   --lift-3: 0 8px 16px rgb(5 13 25 / 0.06), 0 32px 64px rgb(5 13 25 / 0.14);
+
+  /* --- Depth -----------------------------------------------------------
+     The dimensional layer. A raised surface gets three things at once: a
+     hairline that catches light on its top edge, a tinted contact shadow in
+     the brand green rather than neutral grey, and a long ambient shadow. That
+     combination is what reads as "sitting above the page" instead of "drawn
+     on it". */
+  --depth-rest:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    0 1px 2px rgb(0 61 44 / 0.06),
+    0 8px 20px -8px rgb(0 61 44 / 0.14),
+    0 28px 56px -24px rgb(0 61 44 / 0.20);
+  --depth-hover:
+    inset 0 1px 0 rgb(255 255 255 / 0.95),
+    0 2px 4px rgb(0 61 44 / 0.07),
+    0 18px 36px -12px rgb(0 61 44 / 0.22),
+    0 48px 88px -32px rgb(0 61 44 / 0.28);
+  --depth-inset: inset 0 2px 6px rgb(0 61 44 / 0.10), inset 0 -1px 0 rgb(255 255 255 / 0.8);
+  --perspective: 1200px;
 }
 
 /* ============================================================================
@@ -98,6 +135,11 @@
   html {
     -webkit-text-size-adjust: 100%;
     /* No scroll-behavior here — Lenis owns scrolling. */
+
+    /* The entrance swings content in from beyond the left and right edges.
+       `clip` rather than `hidden`: hidden would make the root a scroll
+       container and break every sticky element on the site. */
+    overflow-x: clip;
   }
 
   body {
@@ -248,6 +290,11 @@
    TYPE ROLES
    ========================================================================= */
 
+/*
+ * Eyebrow. The leading rule that used to sit before every one of these — a
+ * 28px dash drawn with ::before — is gone at the client's instruction, so the
+ * label now starts flush with the heading beneath it.
+ */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -258,15 +305,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   line-height: 1;
-  color: var(--color-ink-500);
-}
-
-.eyebrow::before {
-  content: "";
-  width: 1.75rem;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.55;
+  color: var(--color-signal-700);
 }
 
 /* On a green stage the light green accent has nowhere to go, so the inverted
@@ -505,6 +544,114 @@ a:hover .link-rule::after,
 }
 
 /* ============================================================================
+   DEPTH
+
+   The dimensional layer, in four pieces:
+
+     .scene   establishes the perspective a child can rotate inside.
+     .plate   a raised white surface — the workhorse. Light green edge, tinted
+              contact shadow, white top hairline.
+     .lift-3d adds the hover: the surface rises and rotates a degree or so
+              toward the pointer's side of the page.
+     .inset   the opposite — a surface pressed into the page, for wells,
+              readouts and calculator displays.
+
+   Rotation is kept under 2°. Past that a card stops looking like an object on
+   a desk and starts looking like a bug.
+   ========================================================================= */
+
+.scene {
+  perspective: var(--perspective);
+  perspective-origin: 50% 30%;
+}
+
+.plate {
+  position: relative;
+  background: linear-gradient(168deg, #ffffff 0%, var(--color-paper-mint) 100%);
+  border: 1px solid var(--color-line-mint);
+  border-radius: 1rem;
+  box-shadow: var(--depth-rest);
+  transform-style: preserve-3d;
+  transition:
+    transform var(--dur-slow) var(--ease-out-expo),
+    box-shadow var(--dur-slow) var(--ease-out-expo),
+    border-color var(--dur-base) var(--ease-out-quart);
+}
+
+.plate-flat {
+  background: var(--color-paper);
+}
+
+.lift-3d:hover,
+.group:hover .lift-3d {
+  transform: translate3d(0, -6px, 0) rotateX(1.6deg);
+  box-shadow: var(--depth-hover);
+  border-color: var(--color-signal-300);
+}
+
+/* A plate on a dark green stage: the same object, lit from the other side. */
+.plate-invert {
+  position: relative;
+  background: linear-gradient(168deg, rgb(255 255 255 / 0.13) 0%, rgb(255 255 255 / 0.05) 100%);
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 1rem;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.22),
+    0 20px 40px -20px rgb(0 25 18 / 0.75);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  transform-style: preserve-3d;
+  transition:
+    transform var(--dur-slow) var(--ease-out-expo),
+    box-shadow var(--dur-slow) var(--ease-out-expo),
+    border-color var(--dur-base) var(--ease-out-quart);
+}
+
+.plate-invert.lift-3d:hover,
+.group:hover .plate-invert.lift-3d {
+  border-color: rgb(124 224 162 / 0.55);
+}
+
+.inset {
+  background: linear-gradient(180deg, var(--color-paper-mint-deep) 0%, #ffffff 100%);
+  border: 1px solid var(--color-line-mint);
+  border-radius: 0.75rem;
+  box-shadow: var(--depth-inset);
+}
+
+/*
+ * Text set on top of photography. The photographs are unlit phone shots taken
+ * on site, so the scrim has to be strong enough to carry a display heading at
+ * any crop — a plain 40% black is not, on a bright sky.
+ */
+.media-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgb(0 40 29 / 0.92) 0%, rgb(0 40 29 / 0.55) 38%, rgb(0 40 29 / 0.08) 72%),
+    linear-gradient(to right, rgb(0 40 29 / 0.55), transparent 65%);
+}
+
+/* The raised label that floats a photograph's caption off its surface. */
+.media-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4375rem 0.875rem;
+  border-radius: 999px;
+  font-family: var(--font-nav);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-950);
+  background: rgb(255 255 255 / 0.94);
+  box-shadow: 0 6px 18px -6px rgb(0 40 29 / 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ============================================================================
    SCHEMATIC TEXTURES
    The visual language: engineering drawing, not decoration.
    ========================================================================= */
@@ -565,99 +712,110 @@ a:hover .link-rule::after,
    the observer does on mount. Without JS the page renders static and complete.
    ========================================================================= */
 
+/*
+ * The above-the-fold sequence. Still a keyframe animation, because it has no
+ * scroll state to track: it plays once, on arrival, and is done. It is held
+ * until <html data-ready>, which the preloader sets as it lifts — otherwise the
+ * hero would perform its entrance behind the loading screen and be sitting
+ * still by the time anyone saw it.
+ */
 @keyframes slide-in {
   0% {
     opacity: 0;
-    transform: translate3d(var(--motion-x, 0), var(--motion-y, 100%), 0);
+    transform: perspective(var(--perspective))
+      translate3d(var(--motion-x, 0), var(--motion-y, 12%), -140px) rotateY(var(--motion-ry, -7deg))
+      rotateX(3deg);
     clip-path: var(--motion-clip, polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%));
   }
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: perspective(var(--perspective)) translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg);
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
   }
 }
 
-/* The horizontal variants open from the leading edge instead of the bottom. */
-@keyframes slide-in-x {
-  0% {
-    opacity: 0;
-    transform: translate3d(var(--motion-x), 0, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes fold-in {
-  0% {
-    opacity: 0;
-    transform: perspective(800px) rotateX(-32deg) translate3d(0, 24px, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: perspective(800px) rotateX(0deg) translate3d(0, 0, 0);
-  }
-}
-
 @media (prefers-reduced-motion: no-preference) {
+  /* Hold the hero behind the preloader. */
+  [data-motion]:not([data-ready]) [data-enter] {
+    opacity: 0;
+  }
+
+  [data-motion][data-ready] [data-enter] {
+    animation: slide-in var(--reveal-dur) var(--reveal-ease) backwards;
+    animation-delay: var(--enter-delay, calc(var(--i, 0) * 200ms));
+  }
+
+  /* --------------------------------------------------------------------
+     The scroll reveal.
+
+     A transition rather than an animation, so the single declaration runs
+     both ways: forwards as the element arrives, backwards as it retreats,
+     and reversible mid-flight without a snap. The travel is a genuine
+     rotation through depth — the element swings in around the edge it is
+     arriving from, hinged like a door, rather than sliding as a flat card.
+
+     The arrival side lives in [data-from], which the driver rewrites each
+     time an element leaves the viewport: off the top and it comes back from
+     the far side, off the bottom and it keeps its own. That is what makes
+     scrolling up run the sequence in reverse.
+     -------------------------------------------------------------------- */
+  [data-motion] [data-reveal],
+  [data-motion] [data-reveal-wipe],
+  [data-motion] [data-reveal-left],
+  [data-motion] [data-reveal-right],
+  [data-motion] [data-reveal-scale],
+  [data-motion] [data-reveal-3d] {
+    --reveal-x: -13%;
+    --reveal-z: -190px;
+    --reveal-ry: 15deg;
+    --reveal-rx: 4deg;
+    --reveal-delay: calc(var(--i, 0) * 140ms);
+
+    backface-visibility: hidden;
+    transition:
+      opacity calc(var(--reveal-dur) * 0.72) var(--reveal-ease) var(--reveal-delay),
+      transform var(--reveal-dur) var(--reveal-ease) var(--reveal-delay);
+  }
+
+  /* Hinge on the arriving edge. Only observable mid-transition — at rest the
+     transform is `none` and the origin is inert. */
+  [data-motion] [data-from="left"] {
+    --reveal-x: -13%;
+    --reveal-ry: 15deg;
+    transform-origin: 6% 50%;
+  }
+
+  [data-motion] [data-from="right"] {
+    --reveal-x: 13%;
+    --reveal-ry: -15deg;
+    transform-origin: 94% 50%;
+  }
+
+  /* Cards fold as well as swing: the deck tips toward the reader. */
+  [data-motion] [data-reveal-scale] {
+    --reveal-rx: -16deg;
+    --reveal-z: -130px;
+  }
+
   /*
-   * Pre-animation state. Scoped to [data-motion] so it can only ever apply
-   * once JS is running to take it away again.
+   * The armed state. Scoped to [data-motion] so it can only ever apply once
+   * JS is running to take it away again.
+   *
+   * Interpolating this list against `transform: none` is componentwise, not
+   * matrix — the spec substitutes a matching identity list for `none` — so
+   * the swing stays smooth and the settled element carries no transform, and
+   * so no compositor layer and no resampled text.
    */
   [data-motion] [data-reveal]:not([data-inview]),
   [data-motion] [data-reveal-wipe]:not([data-inview]),
   [data-motion] [data-reveal-left]:not([data-inview]),
   [data-motion] [data-reveal-right]:not([data-inview]),
-  [data-motion] [data-reveal-scale]:not([data-inview]) {
+  [data-motion] [data-reveal-scale]:not([data-inview]),
+  [data-motion] [data-reveal-3d]:not([data-inview]) {
     opacity: 0;
-    will-change: transform, opacity, clip-path;
-  }
-
-  [data-motion] [data-enter],
-  [data-motion] [data-reveal][data-inview],
-  [data-motion] [data-reveal-wipe][data-inview],
-  [data-motion] [data-reveal-left][data-inview],
-  [data-motion] [data-reveal-right][data-inview],
-  [data-motion] [data-reveal-scale][data-inview] {
-    animation-duration: 1.2s;
-    animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
-    animation-iteration-count: 1;
-    /*
-     * `backwards`, as the reference uses — not `both`. With `both` the final
-     * keyframe's clip-path would persist for the life of the page and crop
-     * every hover shadow that grows outside the border box.
-     */
-    animation-fill-mode: backwards;
-    /* 200ms per step, the reference's stagger. --enter-delay overrides it
-       outright for the hand-timed above-the-fold sequence. */
-    animation-delay: var(--enter-delay, calc(var(--i, 0) * 200ms));
-  }
-
-  [data-motion] [data-enter],
-  [data-motion] [data-reveal][data-inview],
-  [data-motion] [data-reveal-wipe][data-inview] {
-    animation-name: slide-in;
-  }
-
-  [data-motion] [data-reveal-left][data-inview] {
-    --motion-x: -8%;
-    animation-name: slide-in-x;
-  }
-  [data-motion] [data-reveal-right][data-inview] {
-    --motion-x: 8%;
-    animation-name: slide-in-x;
-  }
-
-  [data-motion] [data-reveal-scale][data-inview] {
-    animation-name: fold-in;
-    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  /* Drop the compositor hint once the element has arrived. */
-  [data-inview] {
-    will-change: auto;
+    transform: perspective(var(--perspective))
+      translate3d(var(--reveal-x), var(--reveal-y, 0), var(--reveal-z)) rotateY(var(--reveal-ry))
+      rotateX(var(--reveal-rx));
   }
 }
 
@@ -673,6 +831,186 @@ a:hover .link-rule::after,
 .zoom-frame:hover .zoom-media,
 .group:hover .zoom-media {
   transform: scale(1.06);
+}
+
+/* ============================================================================
+   PRELOADER
+
+   A green stage that splits and draws back like curtains. Everything here is
+   declarative: the script's only job is to add [data-done] at the right
+   moment, and the failsafe keyframe means even that is optional.
+   ========================================================================= */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  perspective: 1000px;
+
+  /*
+   * The failsafe. If the script never runs — blocked bundle, thrown error,
+   * hydration that never completes — this hides the overlay outright at 2.6s.
+   * On the normal path React has removed the element well before then and the
+   * keyframe is never reached.
+   */
+  animation: preload-failsafe 1ms linear 2600ms forwards;
+}
+
+@keyframes preload-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.preloader-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* A hair over half each, so the meeting line never shows a gap. */
+  height: 50.4%;
+
+  /*
+   * One gradient across both halves. Each panel is its own box, so painting
+   * the gradient at panel size restarts it halfway down and the join reads as
+   * a hard seam. Sizing the image to the full viewport and anchoring each
+   * panel to its own end makes the two halves continuous — the curtain only
+   * becomes two objects once it starts to move.
+   */
+  background-image: linear-gradient(135deg, #003a2b 0%, #00563c 55%, #0b7f3f 100%);
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+  transition: transform 900ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.preloader-panel-top {
+  top: 0;
+  background-position: left top;
+}
+.preloader-panel-bottom {
+  bottom: 0;
+  background-position: left bottom;
+}
+
+.preloader[data-done] .preloader-panel-top {
+  transform: translate3d(0, -100%, 0);
+}
+.preloader[data-done] .preloader-panel-bottom {
+  transform: translate3d(0, 100%, 0);
+}
+
+.preloader-core {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  padding-inline: var(--gutter);
+  transition:
+    opacity 360ms ease-out,
+    transform 620ms var(--ease-out-quart);
+}
+
+/* The camera pushes through the mark as the curtains part. */
+.preloader[data-done] .preloader-core {
+  opacity: 0;
+  transform: translate3d(0, 0, 110px);
+}
+
+.preloader-mark {
+  position: relative;
+  overflow: hidden;
+  animation: preload-mark 1s var(--ease-out-expo) both;
+}
+
+.preloader-mark img {
+  height: clamp(3.75rem, 11vw, 6rem);
+  width: auto;
+}
+
+@keyframes preload-mark {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: translate3d(0, 16px, 0);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* The highlight that travels across the mark while it waits. */
+.preloader-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgb(255 255 255 / 0.5) 50%,
+    transparent 62%
+  );
+  transform: translate3d(-130%, 0, 0);
+  animation: preload-sheen 1.6s var(--ease-out-quart) 400ms infinite;
+}
+
+@keyframes preload-sheen {
+  to {
+    transform: translate3d(130%, 0, 0);
+  }
+}
+
+.preloader-rail {
+  position: relative;
+  width: min(15rem, 58vw);
+  height: 2px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.16);
+  overflow: hidden;
+}
+
+.preloader-rail > span {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  background: linear-gradient(90deg, #17b94a, #35d468 55%, #b7edcb);
+  animation: preload-rail 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes preload-rail {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.preloader-word {
+  font-family: var(--font-nav);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.6);
+  animation: preload-word 900ms var(--ease-out-expo) 360ms both;
+}
+
+@keyframes preload-word {
+  from {
+    opacity: 0;
+    letter-spacing: 0.42em;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    letter-spacing: 0.26em;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @keyframes marquee-track {
@@ -747,15 +1085,23 @@ a:hover .link-rule::after,
   [data-reveal-wipe],
   [data-reveal-left],
   [data-reveal-right],
-  [data-reveal-scale] {
+  [data-reveal-scale],
+  [data-reveal-3d] {
     animation: none !important;
+    transition: none !important;
     opacity: 1 !important;
     transform: none !important;
     clip-path: none !important;
   }
 
-  .marquee-track {
+  .marquee-track,
+  .preloader,
+  .preloader * {
     animation: none !important;
+  }
+
+  .preloader {
+    display: none !important;
   }
 }
 
@@ -810,6 +1156,77 @@ textarea.field {
   font-size: var(--text-small);
   font-weight: 600;
   color: var(--color-ink-800);
+}
+
+/*
+ * Range slider. Styled from scratch in both engines because the native control
+ * carries the OS accent colour, which on a green-and-white page reads as a
+ * foreign object. The thumb is a raised puck; the track is a well.
+ */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 1.5rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-runnable-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--color-signal-500) 0%,
+    var(--color-signal-500) var(--slider-fill, 50%),
+    var(--color-paper-mint-deep) var(--slider-fill, 50%),
+    var(--color-paper-mint-deep) 100%
+  );
+  box-shadow: inset 0 1px 3px rgb(0 61 44 / 0.22);
+}
+
+.slider::-moz-range-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-paper-mint-deep);
+  box-shadow: inset 0 1px 3px rgb(0 61 44 / 0.22);
+}
+
+.slider::-moz-range-progress {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-signal-500);
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.375rem;
+  height: 1.375rem;
+  margin-top: -0.4375rem;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffffff 0%, #eef9f2 100%);
+  border: 1px solid var(--color-signal-400);
+  box-shadow:
+    0 1px 1px rgb(255 255 255 / 0.9) inset,
+    0 2px 4px rgb(0 61 44 / 0.28),
+    0 8px 16px -6px rgb(0 61 44 / 0.4);
+  transition: transform var(--dur-fast) var(--ease-out-quart);
+}
+
+.slider::-moz-range-thumb {
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffffff 0%, #eef9f2 100%);
+  border: 1px solid var(--color-signal-400);
+  box-shadow:
+    0 2px 4px rgb(0 61 44 / 0.28),
+    0 8px 16px -6px rgb(0 61 44 / 0.4);
+}
+
+.slider:active::-webkit-slider-thumb {
+  transform: scale(1.1);
 }
 
 /* ============================================================================

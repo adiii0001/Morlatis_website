@@ -59,7 +59,9 @@ export function ContactCtaSection() {
             <dl className="space-y-px" data-reveal>
               {[
                 { label: "Head office", value: `${company.headquarters}, India`, icon: "pin" as const },
-                { label: "Telephone", value: company.phone, icon: "phone" as const },
+                /* Telephone is omitted until a real published number exists —
+                   rendering "+91 00000 00000" beside a CTA is worse than
+                   rendering nothing. */
                 { label: "General enquiries", value: company.email, icon: "mail" as const },
                 { label: "Business hours", value: company.hours, icon: "clock" as const },
               ].map((item) => (

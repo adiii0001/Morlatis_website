@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 /**
  * Animated numeral.
@@ -27,7 +27,19 @@ export function CountUp({
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const final = `${prefix}${value.toFixed(decimals)}`;
+
+  /* Grouped in the Indian convention — 5,000 rather than 5000. Locale is
+     pinned so the server and the client agree on the separator. */
+  const format = useCallback(
+    (n: number) =>
+      `${prefix}${n.toLocaleString("en-IN", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      })}`,
+    [prefix, decimals]
+  );
+
+  const final = format(value);
 
   useEffect(() => {
     const node = ref.current;
@@ -47,7 +59,7 @@ export function CountUp({
     const tick = (now: number) => {
       if (!start) start = now;
       const progress = Math.min((now - start) / duration, 1);
-      node.textContent = `${prefix}${(value * easeOut(progress)).toFixed(decimals)}`;
+      node.textContent = format(value * easeOut(progress));
       if (progress < 1 && !cancelled) frame = requestAnimationFrame(tick);
     };
 
@@ -68,7 +80,7 @@ export function CountUp({
       cancelAnimationFrame(frame);
       observer.disconnect();
     };
-  }, [value, decimals, prefix, duration, final]);
+  }, [value, duration, final, format]);
 
   return (
     <span className={className}>

@@ -1,4 +1,5 @@
 import { fillLastRow } from "@/lib/grid";
+import { DepthField } from "@/components/visuals/depth-field";
 import { protocolStack, capabilities } from "@/content/technology";
 
 /**
@@ -7,13 +8,26 @@ import { protocolStack, capabilities } from "@/content/technology";
  * The section that was entirely absent before. It is the one place the site
  * demonstrates engineering rather than asserting it: the protocols the Group
  * builds against, named and explained.
+ *
+ * The depth field sits behind it — a volume of linked nodes drifting toward the
+ * reader. This is the band it belongs to: the subject here is interoperability
+ * across a mixed-vendor estate, which is a network with depth, not a texture.
+ * The flat schematic grid it replaces stays as a second layer, well down, so
+ * the drawing-office language does not disappear entirely.
  */
 export function TechnologySection() {
   return (
     <section className="stage-deep section relative overflow-hidden text-white">
-      <div className="grid-field absolute inset-0 opacity-60" aria-hidden="true" />
+      <DepthField className="absolute inset-0 h-full w-full" />
+      <div className="grid-field absolute inset-0 opacity-30" aria-hidden="true" />
+
+      {/* Holds the left column legible over the moving field. */}
       <div
-        className="absolute inset-0 bg-[radial-gradient(70%_60%_at_85%_0%,rgb(255_255_255/0.14),transparent_60%)]"
+        className="absolute inset-0 bg-[radial-gradient(60%_80%_at_10%_50%,rgb(0_58_43/0.9),rgb(0_58_43/0.34)_55%,transparent_78%)]"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-[radial-gradient(70%_60%_at_85%_0%,rgb(255_255_255/0.12),transparent_60%)]"
         aria-hidden="true"
       />
 
@@ -62,10 +76,7 @@ export function TechnologySection() {
                   className={`bg-[#00402f] p-7 transition-colors duration-300 hover:bg-[#00523b] ${fillLastRow(capabilities.length, i, { sm: 2 })}`}
                   data-reveal
                 >
-                  <p className="font-mono text-[0.6875rem] tracking-widest text-white/50">
-                    {String(i + 1).padStart(2, "0")}
-                  </p>
-                  <h3 className="title mt-4 text-white">{c.title}</h3>
+                  <h3 className="title text-white">{c.title}</h3>
                   <p className="mt-3 text-[0.875rem] leading-relaxed text-white/70">{c.body}</p>
                   <ul className="mt-5 space-y-2">
                     {c.points.map((pt) => (

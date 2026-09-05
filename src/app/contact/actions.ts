@@ -9,7 +9,7 @@ const SUBJECTS: Record<string, string> = {
   relay: "Relay Retrofitting",
   railway: "Railway Electrical",
   supply: "Strategic Sourcing",
-  trading: "Commodity Trading",
+  equifin: "Morlatis Equifin — wealth management",
   csr: "Vasudhaara Foundation",
   other: "General enquiry",
 };

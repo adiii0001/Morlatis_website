@@ -24,7 +24,7 @@ export default function OurStoryPage() {
     <>
       <PageHeader
         eyebrow="Our story"
-        title="From one contracting licence to eight verticals."
+        title="From one contracting licence to a multi-vertical group."
         breadcrumb={{ label: "About", href: "/about" }}
         align="wide"
       />

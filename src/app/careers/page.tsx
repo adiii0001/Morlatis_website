@@ -70,7 +70,7 @@ export default function CareersPage() {
             {careerStats.map((stat, i) => (
               <div
                 key={stat.label}
-                className="bg-[#00563c] px-6 py-7"
+                className="bg-[#00563c] px-6 py-7 text-center"
                 data-reveal-scale
                 style={{ "--i": i } as React.CSSProperties}
               >
@@ -129,11 +129,19 @@ export default function CareersPage() {
             to a captioned schematic frame, so the grid stays whole while real
             office and site photography is still being shot.
           */}
-          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {/*
+            Fixed row height above `lg` rather than a 4:3 box on every tile.
+            With an aspect ratio, a tile spanning two columns is also twice as
+            tall as its neighbours, so the 2+1+1 row never lined up with the 2+2
+            row beneath it and the mosaic carried a tile-sized hole down its
+            right-hand side. Fixed rows make a wide tile wide, not tall, and both
+            rows close exactly.
+          */}
+          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:auto-rows-[15rem] lg:grid-cols-4">
             {cultureTiles.map((tile, i) => (
               <li
                 key={tile.caption}
-                className={`zoom-frame group relative flex aspect-[4/3] flex-col justify-end overflow-hidden rounded-xl border border-line p-6 ${tile.span}`}
+                className={`zoom-frame group relative flex aspect-[4/3] flex-col justify-end overflow-hidden rounded-xl border border-line p-6 lg:aspect-auto ${tile.span}`}
                 data-reveal-scale
                 style={{ "--i": i } as React.CSSProperties}
               >

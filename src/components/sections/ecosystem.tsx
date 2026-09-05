@@ -1,19 +1,24 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Icon } from "@/components/ui/icon";
+import { fillLastRow } from "@/lib/grid";
 import { verticals } from "@/content/verticals";
 
 /**
  * Business ecosystem.
  *
- * A capability index rather than eight identical cards. Each vertical is a
- * full-bleed row that inverts on hover — closer to how an annual report
- * indexes a group's operating segments, and it gives each vertical the width
- * its name deserves instead of squeezing "RTU · FRTU · SCADA Engineering" into
- * a 280px card.
+ * Was a flat index of full-bleed rows that inverted to near-black on hover.
+ * Rebuilt as a grid of raised plates so the section carries the same depth as
+ * the rest of the page, and so the verticals that have field photography can
+ * show it with the title set over the image rather than beneath it.
+ *
+ * Verticals without a photograph get a schematic plate instead of a grey box —
+ * the icon on a light-green field. That is a deliberate second treatment, not a
+ * placeholder.
  */
 export function EcosystemSection() {
   return (
-    <section className="section bg-paper-warm">
+    <section className="scene section bg-paper-mint">
       <div className="shell">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-[38rem]">
@@ -21,7 +26,7 @@ export function EcosystemSection() {
               The ecosystem
             </p>
             <h2 className="display-2 mt-6" data-reveal>
-              Eight verticals, one engineering discipline.
+              {verticals.length} verticals, one engineering discipline.
             </h2>
           </div>
           <p className="lede max-w-[24rem]" data-reveal>
@@ -30,40 +35,51 @@ export function EcosystemSection() {
           </p>
         </div>
 
-        <ul className="mt-14 border-t border-line-strong">
-          {verticals.map((v) => (
+        <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {verticals.map((v, i) => (
             <li
               key={v.slug}
-              data-reveal
+              className={fillLastRow(verticals.length, i, { sm: 2, lg: 3 })}
+              data-reveal-scale
             >
               <Link
                 href={`/business-verticals/${v.slug}`}
-                className="group relative grid grid-cols-[1fr_auto] items-center gap-x-5 gap-y-2 border-b border-line py-7 transition-colors duration-300 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)_auto] md:gap-x-10"
+                className="group plate lift-3d zoom-frame flex h-full flex-col overflow-hidden"
               >
-                {/* Ink wash that sweeps in from the left on hover. */}
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-y-0 -inset-x-[var(--gutter)] -z-10 origin-left scale-x-0 bg-ink-950 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
-                />
+                {v.image ? (
+                  <div className="relative aspect-[16/10] shrink-0 overflow-hidden">
+                    <Image
+                      src={v.image}
+                      alt=""
+                      fill
+                      sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
+                      className="zoom-media object-cover"
+                    />
+                    <div className="media-scrim" aria-hidden="true" />
+                    <h3 className="title absolute inset-x-0 bottom-0 p-6 text-white">{v.title}</h3>
+                  </div>
+                ) : (
+                  <div className="relative flex aspect-[16/10] shrink-0 items-center justify-center overflow-hidden bg-[linear-gradient(150deg,#e8f6ee_0%,#ffffff_60%,#e2f8ea_100%)]">
+                    <div
+                      className="grid-field-light absolute inset-0 opacity-60"
+                      aria-hidden="true"
+                    />
+                    <Icon
+                      name={v.icon}
+                      size={54}
+                      className="relative text-signal-600 drop-shadow-[0_10px_18px_rgb(0_61_44/0.22)] transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <h3 className="title absolute inset-x-0 bottom-0 p-6 text-ink-950">{v.title}</h3>
+                  </div>
+                )}
 
-                <span className="flex items-center gap-4">
-                  <Icon
-                    name={v.icon}
-                    size={26}
-                    className="hidden shrink-0 text-ink-500 transition-colors duration-300 group-hover:text-signal-500 md:block"
-                  />
-                  <span className="display-3 !text-[clamp(1.375rem,2.2vw,1.875rem)] text-ink-950 transition-colors duration-300 group-hover:text-white">
-                    {v.title}
+                <div className="flex flex-1 flex-col p-6">
+                  <p className="text-[0.9375rem] leading-relaxed text-ink-600">{v.summary}</p>
+                  <span className="link-rule mt-5 self-start">
+                    {v.status === "forming" ? "In formation" : "Explore"}
+                    <Icon name="arrow-right" size={14} />
                   </span>
-                </span>
-
-                <span className="col-span-2 text-[0.9375rem] text-ink-500 transition-colors duration-300 group-hover:text-ink-300 md:col-span-1">
-                  {v.summary}
-                </span>
-
-                <span className="hidden h-11 w-11 items-center justify-center rounded-full border border-line text-ink-500 transition-all duration-300 group-hover:border-signal-500 group-hover:bg-signal-500 group-hover:text-ink-950 md:flex">
-                  <Icon name="arrow-up-right" size={17} />
-                </span>
+                </div>
               </Link>
             </li>
           ))}

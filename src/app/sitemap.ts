@@ -14,14 +14,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/about/our-story", priority: 0.6 },
     { path: "/about/vision-mission", priority: 0.6 },
     { path: "/about/morlatis-industries", priority: 0.6 },
-    { path: "/about/vasudhaara-foundation", priority: 0.6 },
+    /* /about/vasudhaara-foundation is a redirect to /csr and is deliberately
+       not listed — a sitemap should only ever carry canonical URLs. */
+    { path: "/csr", priority: 0.7 },
     { path: "/business-verticals", priority: 0.9 },
     { path: "/projects", priority: 0.9 },
     { path: "/clients", priority: 0.7 },
-    { path: "/team", priority: 0.6 },
     { path: "/awards", priority: 0.5 },
     { path: "/careers", priority: 0.6 },
-    { path: "/media", priority: 0.5 },
+    /* /team and /media are withdrawn and redirect — see next.config.ts. */
     { path: "/contact", priority: 0.9 },
     { path: "/privacy", priority: 0.2 },
     { path: "/terms", priority: 0.2 },

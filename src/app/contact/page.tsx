@@ -13,7 +13,7 @@ import { company } from "@/content/company";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contact Morlatis Group for electrical EPC, SCADA and automation, relay retrofitting, railway electrical works, material supply or commodity trading enquiries.",
+    "Contact Morlatis Group for electrical EPC, SCADA and automation, relay retrofitting, railway electrical works, material supply or wealth management enquiries.",
   alternates: { canonical: "/contact" },
 };
 

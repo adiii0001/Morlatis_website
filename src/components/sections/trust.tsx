@@ -12,7 +12,7 @@ export function TrustSection() {
   const row = [...clients, ...clients];
 
   return (
-    <section id="trust" className="section-tight border-b border-line bg-paper-cool">
+    <section id="trust" className="section-tight border-y border-line-mint bg-paper-mint">
       <div className="shell">
         <p className="eyebrow justify-center text-center" data-reveal>
           Trusted by India&apos;s utilities, railways and EPC majors
