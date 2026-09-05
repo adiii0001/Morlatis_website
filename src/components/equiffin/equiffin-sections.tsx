@@ -186,8 +186,7 @@ export function EquiffinSections() {
           </h2>
           <p className="mt-4 max-w-[62rem] text-[0.8125rem] leading-relaxed text-ink-500">
             Morlatis Equiffin Private Limited provides wealth management and investment advisory
-            services. Advisory activity is conducted under a SEBI Registered Investment Advisor
-            (RIA). Investments in securities are subject to market risk; read all scheme-related
+            services. Investments in securities are subject to market risk; read all scheme-related
             documents carefully before investing. No return is guaranteed or assured, and past
             performance does not indicate future results. Nothing on this page constitutes an offer
             to buy or sell any security, or personalised investment advice.

@@ -221,7 +221,7 @@ export const verticals: Vertical[] = [
     ],
     specs: [
       { label: "Entity", value: "Morlatis Equiffin Private Limited" },
-      { label: "Advisory", value: "SEBI Registered Investment Advisor led" },
+      { label: "Clients", value: "Individuals, families and businesses" },
       { label: "Approach", value: "Research-driven · Transparent · Long-term" },
     ],
   },
