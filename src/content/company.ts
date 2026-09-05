@@ -135,7 +135,7 @@ export const clients = [
   { name: "Polycab", full: "Polycab India", sector: "Industry", logo: "/img/clients/polycab.png" },
   { name: "Medanta", full: "Medanta", sector: "Institutional", logo: "/img/clients/medanta.svg" },
   { name: "IL&FS", full: "IL&FS", sector: "Infrastructure", logo: "/img/clients/ilfs.png" },
-  { name: "RKI India", full: "RKI India", sector: "Industry" },
+  { name: "RKI India", full: "RKI India", sector: "Industry", logo: "/img/clients/rki.png" },
   { name: "OBSC", full: "OBSC", sector: "Infrastructure", logo: "/img/clients/obsc.jpg" },
   { name: "Aayom Group", full: "Aayom Group", sector: "Industry", logo: "/img/clients/aayom.png" },
 ] as const;
