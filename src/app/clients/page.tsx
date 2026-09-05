@@ -161,7 +161,7 @@ function Watermark({ logo, solo }: { logo: string; solo: boolean }) {
   return (
     <span
       aria-hidden="true"
-      className={`pointer-events-none absolute top-1/2 -translate-y-1/2 opacity-[0.09] mix-blend-multiply grayscale ${
+      className={`pointer-events-none absolute top-1/2 -translate-y-1/2 opacity-[0.18] mix-blend-multiply grayscale ${
         solo ? "right-8 h-36 w-56" : "right-5 h-20 w-32"
       }`}
     >
