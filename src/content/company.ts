@@ -89,17 +89,52 @@ export const credentials = [
   },
 ] as const;
 
+/**
+ * `logo` is each client's own published mark, taken from their corporate site
+ * and served locally. It is optional: a client without one renders a monogram
+ * instead, which is why nothing needs a placeholder file.
+ */
 export const clients = [
-  { name: "SBPDCL", full: "South Bihar Power Distribution Company Ltd", sector: "Utility" },
-  { name: "NBPDCL", full: "North Bihar Power Distribution Company Ltd", sector: "Utility" },
-  { name: "Indian Railways", full: "Indian Railways", sector: "Public" },
-  { name: "Power Grid", full: "Power Grid Corporation of India", sector: "Utility" },
-  { name: "L&T", full: "Larsen & Toubro", sector: "EPC" },
-  { name: "Sterling & Wilson", full: "Sterling & Wilson", sector: "EPC" },
-  { name: "Ashoka Buildcon", full: "Ashoka Buildcon", sector: "EPC" },
-  { name: "Polycab", full: "Polycab India", sector: "Industry" },
-  { name: "Medanta", full: "Medanta", sector: "Institutional" },
-  { name: "IL&FS", full: "IL&FS", sector: "Infrastructure" },
+  {
+    name: "SBPDCL",
+    full: "South Bihar Power Distribution Company Ltd",
+    sector: "Utility",
+    logo: "/img/clients/sbpdcl.jpg",
+  },
+  {
+    name: "NBPDCL",
+    full: "North Bihar Power Distribution Company Ltd",
+    sector: "Utility",
+    logo: "/img/clients/nbpdcl.jpg",
+  },
+  {
+    name: "Indian Railways",
+    full: "Indian Railways",
+    sector: "Public",
+    logo: "/img/clients/indian-railways.png",
+  },
+  {
+    name: "Power Grid",
+    full: "Power Grid Corporation of India",
+    sector: "Utility",
+    logo: "/img/clients/powergrid.svg",
+  },
+  { name: "L&T", full: "Larsen & Toubro", sector: "EPC", logo: "/img/clients/lt.svg" },
+  {
+    name: "Sterling & Wilson",
+    full: "Sterling & Wilson",
+    sector: "EPC",
+    logo: "/img/clients/sterling-wilson.svg",
+  },
+  {
+    name: "Ashoka Buildcon",
+    full: "Ashoka Buildcon",
+    sector: "EPC",
+    logo: "/img/clients/ashoka-buildcon.png",
+  },
+  { name: "Polycab", full: "Polycab India", sector: "Industry", logo: "/img/clients/polycab.png" },
+  { name: "Medanta", full: "Medanta", sector: "Institutional", logo: "/img/clients/medanta.svg" },
+  { name: "IL&FS", full: "IL&FS", sector: "Infrastructure", logo: "/img/clients/ilfs.png" },
   { name: "RKI India", full: "RKI India", sector: "Industry" },
   { name: "OBSC", full: "OBSC", sector: "Infrastructure" },
   { name: "Aayom Group", full: "Aayom Group", sector: "Industry" },

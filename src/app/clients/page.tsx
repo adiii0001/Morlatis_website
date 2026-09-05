@@ -148,6 +148,28 @@ function Frame({ photo, scene }: { photo?: FieldPhoto; scene?: "railway" }) {
   );
 }
 
+type Client = { name: string; full: string; logo?: string };
+
+/**
+ * The client's own mark, printed faintly across the tile it names. It is set in
+ * the brand's ink rather than in the client's colours — a wall of full-colour
+ * marks at this scale reads as an advertisement hoarding — and it is held clear
+ * of the edge rather than bled off it, because a wordmark cut through the middle
+ * of a word reads as a layout fault rather than as a watermark.
+ */
+function Watermark({ logo, solo }: { logo: string; solo: boolean }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`pointer-events-none absolute top-1/2 -translate-y-1/2 opacity-[0.09] mix-blend-multiply grayscale ${
+        solo ? "right-8 h-36 w-56" : "right-5 h-20 w-32"
+      }`}
+    >
+      <Image src={logo} alt="" fill sizes="256px" className="object-contain object-right" />
+    </span>
+  );
+}
+
 function SectorBand({
   sector,
   index,
@@ -155,7 +177,7 @@ function SectorBand({
 }: {
   sector: string;
   index: number;
-  group: { name: string; full: string }[];
+  group: Client[];
 }) {
   const meta = SECTORS[sector];
   const [photo] = meta?.photo ? pickPhotos(meta.photo) : [];
@@ -232,7 +254,7 @@ function SectorBand({
           {group.map((c, i) => (
             <li
               key={c.name}
-              className={`plate lift-3d ${
+              className={`plate lift-3d overflow-hidden ${
                 solo
                   ? "flex flex-col justify-center p-8 sm:p-10"
                   : `flex items-center gap-4 p-6 ${
@@ -243,16 +265,37 @@ function SectorBand({
               data-reveal-scale
               style={{ "--i": Math.min(i, 3) } as React.CSSProperties}
             >
+              {c.logo && <Watermark logo={c.logo} solo={solo} />}
+
+              {/*
+                The badge carries the client's own mark where we have one, and
+                falls back to a monogram where we do not — a mark is padded
+                inside the well rather than filling it, so the two treatments
+                sit on the same circle and the row still scans as one set.
+              */}
               <span
                 aria-hidden="true"
-                className={`inset flex shrink-0 items-center justify-center rounded-full font-display font-bold tracking-[-0.02em] text-signal-700 ${
+                className={`inset relative z-10 flex shrink-0 items-center justify-center overflow-hidden rounded-full font-display font-bold tracking-[-0.02em] text-signal-700 ${
                   solo ? "h-16 w-16 text-[1.25rem]" : "h-12 w-12 text-[0.9375rem]"
                 }`}
               >
-                {monogram(c.full)}
+                {c.logo ? (
+                  <Image
+                    src={c.logo}
+                    alt=""
+                    fill
+                    sizes="64px"
+                    /* Two of the marks are JPEGs on white paper. Multiplying
+                       drops that square into the well instead of printing it
+                       over the well's own tint. */
+                    className={`object-contain mix-blend-multiply ${solo ? "p-2.5" : "p-2"}`}
+                  />
+                ) : (
+                  monogram(c.full)
+                )}
               </span>
 
-              <span className={solo ? "mt-6 block" : "min-w-0"}>
+              <span className={solo ? "relative z-10 mt-6 block" : "relative z-10 min-w-0"}>
                 <span
                   className={`block font-display font-bold tracking-[-0.02em] text-ink-950 ${
                     solo ? "text-[clamp(1.25rem,2vw,1.5rem)]" : "text-[1.0625rem]"
@@ -285,7 +328,9 @@ export default function ClientsPage() {
   const sectors = Array.from(new Set(clients.map((c) => c.sector)));
   const bands = sectors.map((sector) => ({
     sector,
-    group: clients.filter((c) => c.sector === sector).map((c) => ({ name: c.name, full: c.full })),
+    group: clients
+      .filter((c) => c.sector === sector)
+      .map((c) => ({ name: c.name, full: c.full, logo: "logo" in c ? c.logo : undefined })),
   }));
 
   /* The film splits the roster in half rather than closing it, so neither run
