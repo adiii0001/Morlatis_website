@@ -3,13 +3,13 @@
 import { useId, useMemo, useState } from "react";
 
 /**
- * Equifin wealth projection calculator.
+ * Equiffin wealth projection calculator.
  *
  * A monthly-contribution (SIP) projection: three inputs, three outputs and a
  * year-by-year breakdown of contributed capital against growth.
  *
  * Two things it deliberately does NOT do, both on compliance grounds — the
- * Equifin brief is explicit that no guaranteed return may be implied:
+ * Equiffin brief is explicit that no guaranteed return may be implied:
  *
  *   1. The return field is labelled "assumed", never "expected" or "our
  *      returns", and it is the user who sets it.

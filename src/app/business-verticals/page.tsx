@@ -12,7 +12,7 @@ import { foundation, pillars } from "@/content/csr";
 export const metadata: Metadata = {
   title: "Business Verticals",
   description:
-    "Electrical EPC, RTU/FRTU/SCADA engineering, relay retrofitting, railway electrical works, strategic sourcing, Morlatis Equifin wealth management and real estate.",
+    "Electrical EPC, RTU/FRTU/SCADA engineering, relay retrofitting, railway electrical works, strategic sourcing, Morlatis Equiffin wealth management and real estate.",
   alternates: { canonical: "/business-verticals" },
 };
 

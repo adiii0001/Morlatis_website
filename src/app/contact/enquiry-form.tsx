@@ -12,7 +12,7 @@ const subjects = [
   { value: "relay", label: "Relay Retrofitting" },
   { value: "railway", label: "Railway Electrical" },
   { value: "supply", label: "Strategic Sourcing" },
-  { value: "equifin", label: "Morlatis Equifin — wealth management" },
+  { value: "equiffin", label: "Morlatis Equiffin — wealth management" },
   { value: "csr", label: "Vasudhaara Foundation" },
   { value: "other", label: "Something else" },
 ];

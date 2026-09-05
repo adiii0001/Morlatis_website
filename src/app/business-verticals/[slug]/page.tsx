@@ -9,7 +9,7 @@ import { Ribbon } from "@/components/brand/ribbon";
 import { SectionFlag } from "@/components/brand/section-flag";
 import { SolutionsHub } from "@/components/brand/solutions-hub";
 import { WorkflowTrack } from "@/components/brand/workflow-track";
-import { EquifinSections } from "@/components/equifin/equifin-sections";
+import { EquiffinSections } from "@/components/equiffin/equiffin-sections";
 import { RailwayScene } from "@/components/visuals/railway-scene";
 import { verticals, verticalBySlug } from "@/content/verticals";
 import { fillLastRow } from "@/lib/grid";
@@ -201,9 +201,9 @@ export default async function VerticalPage({ params }: { params: Promise<{ slug:
         </section>
       )}
 
-      {/* Equifin is a financial-services business, and the only vertical that
+      {/* Equiffin is a financial-services business, and the only vertical that
           needs a process ladder, a projection tool and a compliance footer. */}
-      {vertical.slug === "morlatis-equifin" && <EquifinSections />}
+      {vertical.slug === "morlatis-equiffin" && <EquiffinSections />}
 
       {/* Railway: a drawn 25 kV overhead-equipment corridor with traction
           current animated along the contact wire, standing in for the AI video

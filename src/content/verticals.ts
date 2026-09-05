@@ -187,12 +187,12 @@ export const verticals: Vertical[] = [
     image: "/img/industries-logistics.jpg",
   },
   {
-    slug: "morlatis-equifin",
-    title: "Morlatis Equifin",
-    shortTitle: "Morlatis Equifin",
+    slug: "morlatis-equiffin",
+    title: "Morlatis Equiffin",
+    shortTitle: "Morlatis Equiffin",
     icon: "growth",
     summary: "Wealth management, portfolio advisory and long-term financial planning.",
-    lede: "Morlatis Equifin Private Limited helps individuals, families and businesses build, preserve and grow wealth through disciplined financial planning and research-driven investment strategies.",
+    lede: "Morlatis Equiffin Private Limited helps individuals, families and businesses build, preserve and grow wealth through disciplined financial planning and research-driven investment strategies.",
     capabilities: [
       {
         title: "Portfolio Management",
@@ -220,7 +220,7 @@ export const verticals: Vertical[] = [
       },
     ],
     specs: [
-      { label: "Entity", value: "Morlatis Equifin Private Limited" },
+      { label: "Entity", value: "Morlatis Equiffin Private Limited" },
       { label: "Advisory", value: "SEBI Registered Investment Advisor led" },
       { label: "Approach", value: "Research-driven · Transparent · Long-term" },
     ],

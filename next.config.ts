@@ -34,6 +34,13 @@ const nextConfig: NextConfig = {
         destination: "/business-verticals",
         permanent: true,
       },
+      /* Spelling correction: the vertical is Morlatis Equiffin, so the slug
+         changed under a URL that was already published. */
+      {
+        source: "/business-verticals/morlatis-equifin",
+        destination: "/business-verticals/morlatis-equiffin",
+        permanent: true,
+      },
       { source: "/team", destination: "/about/who-we-are", permanent: true },
       { source: "/media", destination: "/contact", permanent: true },
     ];

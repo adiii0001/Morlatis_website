@@ -1,16 +1,16 @@
 import Link from "next/link";
 import { Icon } from "@/components/ui/icon";
 import { fillLastRow } from "@/lib/grid";
-import { WealthCalculator } from "@/components/equifin/wealth-calculator";
+import { WealthCalculator } from "@/components/equiffin/wealth-calculator";
 
 /**
- * Morlatis Equifin — the vertical-specific blocks.
+ * Morlatis Equiffin — the vertical-specific blocks.
  *
  * Kept out of the shared [slug] route the way the EPC brochure blocks are:
  * this is the only vertical that is a financial-services business, and it is
  * the only one that needs a process ladder, an FAQ and a compliance footer.
  *
- * Content is taken verbatim in substance from the Equifin brief. The
+ * Content is taken verbatim in substance from the Equiffin brief. The
  * compliance note there is binding on the copy: no guaranteed returns, no
  * performance claims, and the regulatory position stated plainly.
  */
@@ -38,7 +38,7 @@ const why = [
 
 const faqs = [
   {
-    q: "Who is Morlatis Equifin for?",
+    q: "Who is Morlatis Equiffin for?",
     a: "Individuals, families and businesses who want a planned approach to wealth rather than a product sale — typically those with a long horizon and a specific goal in mind.",
   },
   {
@@ -63,7 +63,7 @@ const faqs = [
   },
 ];
 
-export function EquifinSections() {
+export function EquiffinSections() {
   return (
     <>
       {/* ---- Calculator ------------------------------------------------- */}
@@ -127,7 +127,7 @@ export function EquifinSections() {
         <div className="shell relative">
           <div className="max-w-[38rem]">
             <p className="eyebrow eyebrow-invert" data-reveal>
-              Why Equifin
+              Why Equiffin
             </p>
             <h2 className="display-3 mt-6 text-white" data-reveal>
               Unbiased advice, held to a documented process.
@@ -185,7 +185,7 @@ export function EquifinSections() {
             Regulatory &amp; risk disclosure
           </h2>
           <p className="mt-4 max-w-[62rem] text-[0.8125rem] leading-relaxed text-ink-500">
-            Morlatis Equifin Private Limited provides wealth management and investment advisory
+            Morlatis Equiffin Private Limited provides wealth management and investment advisory
             services. Advisory activity is conducted under a SEBI Registered Investment Advisor
             (RIA). Investments in securities are subject to market risk; read all scheme-related
             documents carefully before investing. No return is guaranteed or assured, and past
