@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Minimal production image for container hosts (Cloud Run, etc.).
+  output: "standalone",
+
   turbopack: {
     root: __dirname,
   },
