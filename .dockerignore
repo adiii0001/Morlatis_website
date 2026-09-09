@@ -1,13 +1,13 @@
 Dockerfile
 .dockerignore
+cloudbuild.yaml
 .git
 .gitignore
 .next
 node_modules
 npm-debug.log*
-README.md
-AGENTS.md
-CLAUDE.md
+yarn-debug.log*
+yarn-error.log*
 .claude
 .playwright-mcp
 .vercel
@@ -15,5 +15,6 @@ CLAUDE.md
 .env*
 !.env.example
 coverage
-.tsbuildinfo
+*.tsbuildinfo
 next-env.d.ts
+.DS_Store

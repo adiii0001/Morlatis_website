@@ -1,0 +1,48 @@
+# GitHub push → Cloud Build → Artifact Registry → Cloud Run
+# Trigger this file from a Cloud Build GitHub trigger on branch
+# feat/brand-refresh-workflows-real-estate.
+
+substitutions:
+  _REGION: europe-west1
+  _REPOSITORY: cloud-run-source-deploy
+  _SERVICE_NAME: morlatis-website
+
+steps:
+  # 1. Build the production image from the existing Dockerfile.
+  - name: gcr.io/cloud-builders/docker
+    id: Build
+    args:
+      - build
+      - -t
+      - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_SERVICE_NAME}:${COMMIT_SHA}
+      - .
+
+  # 2. Push the commit-tagged image to Artifact Registry.
+  - name: gcr.io/cloud-builders/docker
+    id: Push
+    waitFor: ["Build"]
+    args:
+      - push
+      - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_SERVICE_NAME}:${COMMIT_SHA}
+
+  # 3. Deploy that exact image to the existing Cloud Run service.
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    id: Deploy
+    waitFor: ["Push"]
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - ${_SERVICE_NAME}
+      - --image=${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_SERVICE_NAME}:${COMMIT_SHA}
+      - --region=${_REGION}
+      - --platform=managed
+      - --quiet
+
+images:
+  - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_SERVICE_NAME}:${COMMIT_SHA}
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+timeout: 1800s
