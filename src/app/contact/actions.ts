@@ -79,14 +79,14 @@ export async function submitEnquiry(
       console.error("Enquiry transport failed:", error);
       return {
         status: "error",
-        message: `We could not send that automatically. Please email ${company.projectsEmail} directly.`,
+        message: `We could not send that automatically. Please email ${company.supportEmail} directly.`,
         fieldErrors: {},
       };
     }
   }
 
   const mailto =
-    `mailto:${company.projectsEmail}` +
+    `mailto:${company.supportEmail}` +
     `?subject=${encodeURIComponent(`[${subjectLabel}] Enquiry from ${name}`)}` +
     `&body=${encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\nPhone: ${phone || "—"}\nSubject: ${subjectLabel}\n\n${message}`

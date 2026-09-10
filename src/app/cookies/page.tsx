@@ -43,7 +43,7 @@ export default function CookiesPage() {
         {
           heading: "Contact",
           body: [
-            `Questions about this policy can be directed to ${company.email}.`,
+            `Questions about this policy can be directed to ${company.legalEmail}.`,
           ],
         },
       ]}

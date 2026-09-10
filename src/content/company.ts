@@ -14,10 +14,12 @@ export const company = {
   headquarters: "Patna, Bihar",
   domain: "www.morlatis.com",
 
-  // TODO: replace with the real published number before launch.
-  phone: "+91 00000 00000",
+  phone: "+91 612 40 29986",
   email: "info@morlatis.com",
-  projectsEmail: "projects@morlatis.com",
+  /** Project and tender / client enquiries. */
+  supportEmail: "support@morlatis.com",
+  legalEmail: "legal@morlatis.com",
+  csrEmail: "csr@morlatis.com",
   careersEmail: "careers@morlatis.com",
   hours: "Mon – Sat · 9:00 AM – 6:00 PM",
 

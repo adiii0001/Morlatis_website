@@ -48,10 +48,10 @@ export function LegalPage({
               <p className="text-[0.875rem] leading-relaxed text-ink-600">
                 Questions about this policy can be sent to{" "}
                 <a
-                  href={`mailto:${company.email}`}
+                  href={`mailto:${company.legalEmail}`}
                   className="font-semibold text-signal-700 underline underline-offset-4"
                 >
-                  {company.email}
+                  {company.legalEmail}
                 </a>
                 . This document is a baseline and should be reviewed by legal counsel before the
                 site goes live.

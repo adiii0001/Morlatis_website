@@ -176,8 +176,8 @@ export default function CsrPage() {
                 Contact the Foundation
                 <Icon name="arrow-right" size={16} />
               </Link>
-              <a href={`mailto:${company.email}`} className="btn btn-line">
-                {company.email}
+              <a href={`mailto:${company.csrEmail}`} className="btn btn-line">
+                {company.csrEmail}
               </a>
             </div>
           </div>

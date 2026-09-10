@@ -48,8 +48,8 @@ export function ContactCtaSection() {
                 </Link>
               </Magnetic>
               <Magnetic>
-                <a href={`mailto:${company.projectsEmail}`} className="btn btn-line-invert">
-                  {company.projectsEmail}
+                <a href={`mailto:${company.supportEmail}`} className="btn btn-line-invert">
+                  {company.supportEmail}
                 </a>
               </Magnetic>
             </div>
@@ -59,10 +59,24 @@ export function ContactCtaSection() {
             <dl className="space-y-px" data-reveal>
               {[
                 { label: "Head office", value: `${company.headquarters}, India`, icon: "pin" as const },
-                /* Telephone is omitted until a real published number exists —
-                   rendering "+91 00000 00000" beside a CTA is worse than
-                   rendering nothing. */
-                { label: "General enquiries", value: company.email, icon: "mail" as const },
+                {
+                  label: "Landline",
+                  value: company.phone,
+                  href: `tel:${company.phone.replace(/\s/g, "")}`,
+                  icon: "phone" as const,
+                },
+                {
+                  label: "General enquiries",
+                  value: company.email,
+                  href: `mailto:${company.email}`,
+                  icon: "mail" as const,
+                },
+                {
+                  label: "Project & tender",
+                  value: company.supportEmail,
+                  href: `mailto:${company.supportEmail}`,
+                  icon: "mail" as const,
+                },
                 { label: "Business hours", value: company.hours, icon: "clock" as const },
               ].map((item) => (
                 <div
@@ -74,7 +88,15 @@ export function ContactCtaSection() {
                     <dt className="text-[0.6875rem] uppercase tracking-[0.16em] text-white/65">
                       {item.label}
                     </dt>
-                    <dd className="mt-1 text-[0.9375rem] text-white">{item.value}</dd>
+                    <dd className="mt-1 text-[0.9375rem] text-white">
+                      {"href" in item && item.href ? (
+                        <a href={item.href} className="transition-colors hover:text-signal-200">
+                          {item.value}
+                        </a>
+                      ) : (
+                        item.value
+                      )}
+                    </dd>
                   </div>
                 </div>
               ))}

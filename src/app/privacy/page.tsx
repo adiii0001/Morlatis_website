@@ -47,7 +47,7 @@ export default function PrivacyPage() {
           heading: "Your rights",
           body: [
             "You may request access to, correction of, or deletion of the personal information we hold about you, and you may withdraw consent to further contact at any time.",
-            `To exercise any of these rights, write to ${company.email}. We will respond within thirty days.`,
+            `To exercise any of these rights, write to ${company.legalEmail}. We will respond within thirty days.`,
           ],
         },
         {

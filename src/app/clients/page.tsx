@@ -403,8 +403,8 @@ export default function ClientsPage() {
                   Request references
                   <Icon name="arrow-right" size={15} />
                 </Link>
-                <a href={`mailto:${company.projectsEmail}`} className="btn btn-line">
-                  {company.projectsEmail}
+                <a href={`mailto:${company.supportEmail}`} className="btn btn-line">
+                  {company.supportEmail}
                 </a>
               </div>
             </div>
