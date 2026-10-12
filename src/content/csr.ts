@@ -1,7 +1,7 @@
 import type { IconName } from "@/components/ui/icon";
 
 /**
- * Morlatis Vasudhaara Foundation — the Group's CSR arm.
+ * Morlatis Vasundhara Foundation — the Group's CSR arm.
  *
  * Content is taken from the Foundation's own visual identity and programme
  * brief. It is deliberately NOT a business vertical: the Foundation does not
@@ -9,13 +9,13 @@ import type { IconName } from "@/components/ui/icon";
  */
 
 export const foundation = {
-  name: "Morlatis Vasudhaara Foundation",
-  shortName: "Vasudhaara Foundation",
+  name: "Morlatis Vasundhara Foundation",
+  shortName: "Vasundhara Foundation",
   established: 2026,
   tagline: "Serving Humanity · Nurturing Earth",
   promise: "Where every hand extended becomes a life transformed.",
   parent: "An initiative of Morlatis Group of Companies",
-  lede: "Vasudhaara — a flow of wealth back into the communities the Group works in. Established 2026 as the corporate social responsibility vehicle of the Morlatis Group, funded by a fixed share of Group profit.",
+  lede: "Vasundhara — a flow of wealth back into the communities the Group works in. Established 2026 as the corporate social responsibility vehicle of the Morlatis Group, funded by a fixed share of Group profit.",
   regions: "Bihar · Jharkhand · Eastern Uttar Pradesh",
 } as const;
 

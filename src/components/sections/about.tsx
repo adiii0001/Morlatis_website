@@ -74,7 +74,7 @@ export function AboutSection() {
                 Morlatis began in 2018 as a focused electrical contracting venture serving Bihar&apos;s
                 distribution utilities. It now spans substation EPC, telemetry and protection
                 engineering, railway electrical works, material supply, wealth management and real
-                estate — alongside the Vasudhaara Foundation, the Group&apos;s CSR arm.
+                estate — alongside the Vasundhara Foundation, the Group&apos;s CSR arm.
               </p>
               <p className="text-ink-600">
                 The through-line is unchanged: work that has to be energised, tested and handed over

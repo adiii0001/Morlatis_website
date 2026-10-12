@@ -10,7 +10,7 @@ import { pickPhotos } from "@/content/field";
 import { company } from "@/content/company";
 
 /**
- * Corporate social responsibility — the Morlatis Vasudhaara Foundation.
+ * Corporate social responsibility — the Morlatis Vasundhara Foundation.
  *
  * The Foundation used to be published as a "business vertical", which put a
  * charitable trust in the same index as a trading desk. It now has its own
@@ -19,12 +19,12 @@ import { company } from "@/content/company";
  */
 
 export const metadata: Metadata = {
-  title: "CSR — Morlatis Vasudhaara Foundation",
+  title: "CSR — Morlatis Vasundhara Foundation",
   description:
-    "The Morlatis Vasudhaara Foundation, established 2026, is the CSR arm of the Morlatis Group: healthcare, agriculture and farmer welfare, education and skills, food and nutrition, and community welfare across Bihar, Jharkhand and Eastern Uttar Pradesh.",
+    "The Morlatis Vasundhara Foundation, established 2026, is the CSR arm of the Morlatis Group: healthcare, agriculture and farmer welfare, education and skills, food and nutrition, and community welfare across Bihar, Jharkhand and Eastern Uttar Pradesh.",
   alternates: { canonical: "/csr" },
   openGraph: {
-    title: "Morlatis Vasudhaara Foundation | CSR",
+    title: "Morlatis Vasundhara Foundation | CSR",
     description: foundation.lede,
   },
 };
@@ -150,7 +150,7 @@ export default function CsrPage() {
         label="Site footage of Morlatis works in a Patna neighbourhood"
         eyebrow="On the ground"
         title="A flow, back into the districts."
-        body="Vasudhaara is funded by a fixed share of Group profit — so the more the crews deliver in these neighbourhoods, the more the Foundation returns to them."
+        body="Vasundhara is funded by a fixed share of Group profit — so the more the crews deliver in these neighbourhoods, the more the Foundation returns to them."
         stats={[
           { value: String(foundation.established), label: "Established" },
           { value: "5", label: "Mission pillars" },

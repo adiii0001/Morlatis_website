@@ -29,7 +29,7 @@ const columns = [
       { label: "Projects", href: "/projects" },
       { label: "Clients", href: "/clients" },
       { label: "Awards & Recognition", href: "/awards" },
-      { label: "CSR · Vasudhaara Foundation", href: "/csr" },
+      { label: "CSR · Vasundhara Foundation", href: "/csr" },
       { label: "Contact", href: "/contact" },
     ],
   },

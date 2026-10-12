@@ -13,7 +13,7 @@ const subjects = [
   { value: "railway", label: "Railway Electrical" },
   { value: "supply", label: "Strategic Sourcing" },
   { value: "equiffin", label: "Morlatis Equiffin — wealth management" },
-  { value: "csr", label: "Vasudhaara Foundation" },
+  { value: "csr", label: "Vasundhara Foundation" },
   { value: "other", label: "Something else" },
 ];
 

@@ -35,7 +35,7 @@ const sections = [
   },
   {
     href: "/about/vasudhaara-foundation",
-    title: "Vasudhaara Foundation",
+    title: "Vasundhara Foundation",
     body: "The Group's CSR arm, working across education, healthcare, agriculture and community.",
   },
 ];

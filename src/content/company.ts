@@ -165,7 +165,7 @@ export const timeline = [
   },
   {
     year: "2026",
-    title: "Vasudhaara Foundation",
+    title: "Vasundhara Foundation",
     body: "Established the Group's CSR arm for healthcare, agriculture, education, food and community programmes.",
   },
   {
